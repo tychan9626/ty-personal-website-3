@@ -4,21 +4,23 @@
   </div>
    -->
 
+<div class="container">
 
-<!-- Header -->
-<header class="py-3 text-center">
-  <h1>{{ userDisplayName }}</h1>
-</header>
+  <!-- Header -->
+  <header class="py-3 text-center">
+    <h1>{{ userDisplayName }}</h1>
+  </header>
 
-<!-- Summary -->
-<p>{{ userSummary }}</p>
+  <!-- Summary -->
+  <p>{{ userSummary }}</p>
 
-<!-- Work Experience -->
-<h2 id="work_experience">Work Experience</h2>
-@for (job of workExperience; track $index) {
-<h3 class="py-1">{{ job.title }}</h3>
-<h4>{{ job.company }}, {{ job.startDate | date: 'MMM yyyy' }} - {{ job.endDate | date: 'MMM yyyy' }}</h4>
-<div class="row">
+  <!-- Work Experience -->
+  <h2 id="work_experience">Work Experience</h2>
+</div>
+  @for (job of workExperience; track $index) {
+  <h3 class="py-1 text-center">{{ job.title }}</h3>
+  <h4 class="py-1 text-center">{{ job.company }}, {{ job.startDate | date: 'MMM yyyy' }} - {{ job.endDate | date: 'MMM yyyy' }}</h4>
+  <!-- <div class="row">
   @for (sum of job.summary; track sum.highlightType; let idx = $index) {
   <ul class="col-lg card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
     @if (sum.highlightType == "hl101") {
@@ -30,113 +32,152 @@
     <li class="list-group-item"></li>
   </ul>
   }
-</div>
-@if(job.knowledge1.length > 0 || job.knowledge2.length > 0 || job.knowledge3.length > 0) {
-  <h4 class="py-1 text-center">Knowledge</h4>
-}
-<div class="row">
-  @for (knowledge of job.knowledge1; track knowledge; let idx = $index) {
-  <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
-    <li class="list-group-item"><p class="card-text text-center">{{knowledge}}</p></li>
-  </ul>
-  }
-</div>
-<div class="row">
-  @for (knowledge of job.knowledge2; track knowledge; let idx = $index) {
-  <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
-    <li class="list-group-item"><p class="card-text text-center">{{knowledge}}</p></li>
-  </ul>
-  }
-</div>
-<div class="row">
-  @for (knowledge of job.knowledge3; track knowledge; let idx = $index) {
-  <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
-    <li class="list-group-item"><p class="card-text text-center">{{knowledge}}</p></li>
-  </ul>
-  }
-</div>
-@if(job.skills1.length > 0 || job.skills3.length > 0 || job.skills3.length > 0) {
-  <h4 class="py-1 text-center">Leveraged Knowledge</h4>
-}
-<div class="row">
-  @for (skill of job.skills1; track skill; let idx = $index) {
-  <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
-    <li class="list-group-item"><p class="card-text text-center">{{skill}}</p></li>
-  </ul>
-  }
-</div>
-<div class="row">
-  @for (skill of job.skills2; track skill; let idx = $index) {
-  <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
-    <li class="list-group-item"><p class="card-text text-center">{{skill}}</p></li>
-  </ul>
-  }
-</div>
-<div class="row">
-  @for (skill of job.skills3; track skill; let idx = $index) {
-  <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
-    <li class="list-group-item"><p class="card-text text-center">{{skill}}</p></li>
-  </ul>
-  }
-</div>
-}
+</div> -->
 
-<!-- Software Projects -->
-<h4 id="software_projects">Software Projects</h4>
-<section class="py-4">
-  <div class="card mb-3" *ngFor="let project of softwareProjects">
-    <div class="card-body">
-      <h5 class="card-title">{{ project.name }}</h5>
-      <ul>
-        <li *ngFor="let desc of project.description">{{ desc }}</li>
-      </ul>
-      <!--
+
+  <div class="row">
+    @for (sum of job.summary; track sum.highlightType; let idx = $index) {
+    @if (sum.highlightType == "hl101") {
+    <div class="home-hl101 container-fluid {{sum.highlightLine0}} {{sum.highlightLine1}}">
+      <div class="row align-items-center">
+        <!-- Left: Image Section -->
+        <div class="col-md-5 col-12 mb-3 mb-md-0">
+          <img src="{{sum.highlightLine2}}" alt="{{sum.highlightLine3}}" class="img-fluid w-100">
+        </div>
+        <!-- Right: Text Section -->
+        <div class="col-md-7 col-12">
+          <p style="padding-right: 70px;">{{sum.text}}</p>
+          @if (sum.highlightLine4.length > 0) {
+          <button class="btn btn-primary" [routerLink]="[sum.highlightLine5]">{{sum.highlightLine4}}</button>
+          }
+        </div>
+      </div>
+    </div>
+    }
+    }
+  </div>
+
+
+
+
+  @if(job.knowledge1.length > 0 || job.knowledge2.length > 0 || job.knowledge3.length > 0) {
+  <h4 class="py-1 text-center">Knowledge</h4>
+  }
+  <div class="row">
+    @for (knowledge of job.knowledge1; track knowledge; let idx = $index) {
+    <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
+      <li class="list-group-item">
+        <p class="card-text text-center">{{knowledge}}</p>
+      </li>
+    </ul>
+    }
+  </div>
+  <div class="row">
+    @for (knowledge of job.knowledge2; track knowledge; let idx = $index) {
+    <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
+      <li class="list-group-item">
+        <p class="card-text text-center">{{knowledge}}</p>
+      </li>
+    </ul>
+    }
+  </div>
+  <div class="row">
+    @for (knowledge of job.knowledge3; track knowledge; let idx = $index) {
+    <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
+      <li class="list-group-item">
+        <p class="card-text text-center">{{knowledge}}</p>
+      </li>
+    </ul>
+    }
+  </div>
+  @if(job.skills1.length > 0 || job.skills3.length > 0 || job.skills3.length > 0) {
+  <h4 class="py-1 text-center">Leveraged Knowledge</h4>
+  }
+  <div class="row">
+    @for (skill of job.skills1; track skill; let idx = $index) {
+    <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
+      <li class="list-group-item">
+        <p class="card-text text-center">{{skill}}</p>
+      </li>
+    </ul>
+    }
+  </div>
+  <div class="row">
+    @for (skill of job.skills2; track skill; let idx = $index) {
+    <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
+      <li class="list-group-item">
+        <p class="card-text text-center">{{skill}}</p>
+      </li>
+    </ul>
+    }
+  </div>
+  <div class="row">
+    @for (skill of job.skills3; track skill; let idx = $index) {
+    <ul class="col-md card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
+      <li class="list-group-item">
+        <p class="card-text text-center">{{skill}}</p>
+      </li>
+    </ul>
+    }
+  </div>
+  }
+  <div class="container">
+  <!-- Software Projects -->
+  <h4 id="software_projects">Software Projects</h4>
+  <section class="py-4">
+    <div class="card mb-3" *ngFor="let project of softwareProjects">
+      <div class="card-body">
+        <h5 class="card-title">{{ project.name }}</h5>
+        <ul>
+          <li *ngFor="let desc of project.description">{{ desc }}</li>
+        </ul>
+        <!--
         <div *ngIf="project.codeSample">
           <h6>Code Sample:</h6>
           <pre><code>{{ project.codeSample }}</code></pre>
         </div>
         -->
-      <h6>Leveraged Knowledge:</h6>
-      <code>{{ project.skills.join(", ") }}</code>
-      <div *ngIf="project.screenCaptureLinks.length>0">
-        <h6>Screen Captures:</h6>
-        <img *ngFor="let capture of project.screenCaptureLinks" [src]="capture" class="img-thumbnail" />
-      </div>
-      <div>
-        <h6>Action:</h6>
-        <button class="btn btn-primary" (click)="navigateURL(project.link)">View on GitHub</button>
+        <h6>Leveraged Knowledge:</h6>
+        <code>{{ project.skills.join(", ") }}</code>
+        <div *ngIf="project.screenCaptureLinks.length>0">
+          <h6>Screen Captures:</h6>
+          <img *ngFor="let capture of project.screenCaptureLinks" [src]="capture" class="img-thumbnail" />
+        </div>
+        <div>
+          <h6>Action:</h6>
+          <button class="btn btn-primary" (click)="navigateURL(project.link)">View on GitHub</button>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Education -->
-<h4 id="education">Education</h4>
-<section class="py-4">
-  <div class="card mb-3" *ngFor="let education of education">
-    <div class="card-body">
-      <h5>{{ education.name }}</h5>
-      <h6>{{ education.school }} - From {{ education.startDate }} to {{ education.endDate }}</h6>
-      <!--
+  <!-- Education -->
+  <h4 id="education">Education</h4>
+  <section class="py-4">
+    <div class="card mb-3" *ngFor="let education of education">
+      <div class="card-body">
+        <h5>{{ education.name }}</h5>
+        <h6>{{ education.school }} - From {{ education.startDate }} to {{ education.endDate }}</h6>
+        <!--
         <p>GPA: {{ education.gpa }}</p>
         -->
-      <h6>Featured Coursework</h6>
-      <ul>
-        <li *ngFor="let course of education.featuredCourses">{{ course }}</li>
-      </ul>
-      <h6>Other Coursework</h6>
-      <ul>
-        <li *ngFor="let course of education.otherCourses">{{ course }}</li>
-      </ul>
+        <h6>Featured Coursework</h6>
+        <ul>
+          <li *ngFor="let course of education.featuredCourses">{{ course }}</li>
+        </ul>
+        <h6>Other Coursework</h6>
+        <ul>
+          <li *ngFor="let course of education.otherCourses">{{ course }}</li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Technical Skills -->
-<h4 id="technical_skills">Technical Skills</h4>
-<section class="py-4">
-  <div class="row">
-    <!-- <div class="col-md-6">
+  <!-- Technical Skills -->
+  <h4 id="technical_skills">Technical Skills</h4>
+  <section class="py-4">
+    <div class="row">
+      <!-- <div class="col-md-6">
         <h6>Proficient In:</h6>
         <ul>
           <li *ngFor="let skill of technicalSkills.proficient"><code>{{ skill }}</code></li>
@@ -148,39 +189,39 @@
           <li *ngFor="let skill of technicalSkills.familiar"><code>{{ skill }}</code></li>
         </ul>
       </div> -->
-    <div class="col-md-12">
-      <code>{{ technicalSkills.join(", ") }}</code>
+      <div class="col-md-12">
+        <code>{{ technicalSkills.join(", ") }}</code>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Contact Me -->
-<h4 id="contact_me">Contact Me</h4>
-<section class="py-4">
-  <form action="https://formspree.io/f/xvgooypl" method="POST">
-    <div class="mb-3">
-      <label for="contactName" class="form-label">Your name<span class="text-danger">
-          *</span></label>
-      <input type="text" class="form-control" id="contactName" placeholder="" name="name" required>
-    </div>
-    <div class="mb-3">
-      <label for="contactEmail" class="form-label">Your email address<span class="text-danger">
-          *</span></label>
-      <input type="email" class="form-control" id="contactEmail" placeholder="name@example.com" name="email" required>
-    </div>
-    <div class="mb-3">
-      <label for="contactContent" class="form-label">Your message<span class="text-danger">
-          *</span></label>
-      <textarea class="form-control" id="contactContent" rows="6" name="message" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Send</button>&nbsp;
-    <button type="reset" class="btn btn-secondary">Clear</button>
-    <br><br>
-    <span class="text-muted text-muted"> Messages will be securely sent via &nbsp;<img src="formspree.svg" height="18"
-        alt="Formspree">.</span>
-  </form>
-</section>
-
+  <!-- Contact Me -->
+  <h4 id="contact_me">Contact Me</h4>
+  <section class="py-4">
+    <form action="https://formspree.io/f/xvgooypl" method="POST">
+      <div class="mb-3">
+        <label for="contactName" class="form-label">Your name<span class="text-danger">
+            *</span></label>
+        <input type="text" class="form-control" id="contactName" placeholder="" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="contactEmail" class="form-label">Your email address<span class="text-danger">
+            *</span></label>
+        <input type="email" class="form-control" id="contactEmail" placeholder="name@example.com" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="contactContent" class="form-label">Your message<span class="text-danger">
+            *</span></label>
+        <textarea class="form-control" id="contactContent" rows="6" name="message" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Send</button>&nbsp;
+      <button type="reset" class="btn btn-secondary">Clear</button>
+      <br><br>
+      <span class="text-muted text-muted"> Messages will be securely sent via &nbsp;<img src="formspree.svg" height="18"
+          alt="Formspree">.</span>
+    </form>
+  </section>
+</div>
 <!-- <section class="py-4" *ngFor="let job of workExperience">
   <div class="card-body">
     <h5 class="card-title">{{ job.title }}</h5>

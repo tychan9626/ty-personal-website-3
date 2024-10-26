@@ -64,7 +64,9 @@ section {
   .card>img {
     border-radius: 15px;
   }
-
+  .home-hl101 {
+    animation: slideUpFadeIn 1s ease-in-out;
+  }
 
 card {
     animation: fadeIn 1s ease-in-out;
