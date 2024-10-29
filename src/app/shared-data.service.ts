@@ -350,6 +350,14 @@ export class SharedDataService {
       displayCode: 'dp41',
       logDetails: [
         {
+          version: '3.1',
+          date: '2024-10-29',
+          description: [
+            'Update website content (footer, nav-bar, and sofware projects).',
+          ],
+          critical: true,
+        },
+        {
           version: '3.0',
           date: '2024-10-24',
           description: [
