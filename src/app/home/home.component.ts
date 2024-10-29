@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedDataService } from '../shared-data.service';
-import { education, softwareProjects, UserData, workExperience } from '../user-data.model';
+import { education, navLink, softwareProjects, technicalSkills, UserData, userImg, workExperience } from '../user-data.model';
 import { DatePipe, NgFor, NgIf, NgStyle } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -12,26 +12,35 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  userDisplayName: string = '';
-  userSummary: string = '';
-  workExperience: workExperience[] = [];
-  workExperienceChunked: workExperience[][] = [];
-  softwareProjects: softwareProjects[] = [];
-  education: education[] = [];
-  technicalSkills: string[] = [];
+  userDisplayName!: string;
+  userImg!: userImg;
+  userSummary!: string;
+  workExperience!: workExperience[];
+  workExperienceChunked!: workExperience[][];
+  softwareProjects!: softwareProjects[];
+  education!: education[];
+  technicalSkills!: technicalSkills;
 
-  constructor(private sharedDataService: SharedDataService) {}
+  internalNavLinks!: navLink[];
+  externalNavLink!: navLink[];
+  otherPagesNavLink!: navLink[];
+
+  constructor(private sharedDataService: SharedDataService) { }
 
   ngOnInit() {
     this.sharedDataService.userData$.subscribe((data: UserData) => {
       this.userDisplayName = data.userDisplayName;
+      this.userImg = data.userImg;
       this.userSummary = data.userSummary;
       this.workExperience = data.workExperience;
       this.softwareProjects = data.softwareProjects;
       this.education = data.education;
       this.technicalSkills = data.technicalSkills;
+
+      this.internalNavLinks = data.internalNavLink;
+      this.externalNavLink = data.externalNavLink;
+      this.otherPagesNavLink = data.otherPagesNavLink;
     });
-    this.workExperienceChunked=this.chunkArray(this.workExperience, 2);
   }
 
 
@@ -42,13 +51,5 @@ export class HomeComponent {
 
   navigateURL(url: string) {
     window.location.href = url;
-  }
-
-  chunkArray(array: any[], chunkSize: number) {
-    const result = [];
-    for (let i = 0; i < array.length; i += chunkSize) {
-      result.push(array.slice(i, i + chunkSize));
-    }
-    return result;
   }
 }

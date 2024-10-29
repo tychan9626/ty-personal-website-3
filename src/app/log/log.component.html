@@ -1,29 +1,29 @@
-<h1>Log</h1>
+<div class="container">
+  <h1 class="py-1 text-center">Log</h1>
+  @for (log of log.logDetails; track $index; let idx = $index) {
+  <div class="log-card slideUpFadeInAnimation row border-bottom" [ngStyle]="{ 'animation-delay': idx * 0.1 + 's' }">
+    <div class="col-md-2 col-12 mb-3 mb-md-0">
+      @if (log.critical) {
+      <h5>Version</h5>
+      <h5 class="log-critical">{{ log.version }}</h5>
+      } @else {
+      <h5>Version {{ log.version }}</h5>
+      }
+      <span>{{ log.date | date: 'dd MMM yyyy' }}</span>
 
-@for (log of log; track $index; let idx = $index) {
-    <div class="card" [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
-        <div class="card-header">
-            {{ log.date | date: 'dd MMM yyyy' }}
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">
-                @if (log.critical) {
-                    <span class="text-danger">Version {{ log.version }}</span>
-                } @else {
-                    Version {{ log.version }}
-                }
-            </h5>
-            <ul>
-                @for (desc of log.description; track $index) {
-                    <li class="card-text">{{ desc }}</li>
-                }
-            </ul>
-        </div>
     </div>
-    <br>
-}
+    <div class="col-md-10 col-12">
+      <ul style="padding-right: 70px;">
+        @for (desc of log.description; track $index) {
+        <li class="card-text">{{ desc }}</li>
+        }
+      </ul>
+    </div>
+  </div>
+  }
 
 
-<!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-<br>
-<br>
+  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+  <br>
+  <br>
+</div>

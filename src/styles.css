@@ -1,6 +1,27 @@
+
+/* Global button START */
+.tybtn {
+    border-radius: 25px;
+}
+/* Global button END */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 html,
 body {
-    background-color: #eeeeee;
+    background-color: #ffffff;
     color: #585858;
     height: 100%;
     margin: 0;
@@ -13,26 +34,19 @@ body {
 }
 
 h1,
-h2,
-h3,
-h4,
-h5,
-h6,
 .h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
 .card-title {
     font-weight: 600;
     font-style: normal;
 }
 
+
+
+
 @keyframes slideUpFadeIn {
     0% {
         opacity: 0;
-        transform: translateY(30%);
+        transform: translateY(20px);
     }
 
     100% {
@@ -41,7 +55,12 @@ h6,
     }
 }
 
-
+.slideUpFadeInAnimation {
+    opacity: 0;
+    animation: slideUpFadeIn 0.5s ease-in-out;
+    animation-fill-mode: forwards;
+    transform: translateY(20px);
+}
 
 section {
     animation: slideUpFadeIn 1s ease-in-out;
@@ -59,35 +78,27 @@ section {
     margin: 10px;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+}
 
-  .card>img {
+.card>img {
     border-radius: 15px;
-  }
-  .home-hl101 {
-    animation: slideUpFadeIn 1s ease-in-out;
-  }
+}
+
+
 
 card {
     animation: fadeIn 1s ease-in-out;
 }
 
-@media (max-width: 767.98px) {
-    section {
-        scroll-margin-top: 205px;
-    }
+.log-card {
+    padding: 20px;
+    margin: 10px;
 }
 
-@media (max-width: 1199.98px) {
-    section {
-        scroll-margin-top: 65px;
-    }
+.home-contact-me {
+    padding: 20px;
 }
 
-
-h2 {
-    color: #0056b3;
-}
 
 button:hover {
     background-color: #c0e8ff;
@@ -120,6 +131,18 @@ button:hover {
 }
 
 
-h3 {
-    scroll-margin-top: 165px;
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out;
+    animation-fill-mode: forwards;
 }

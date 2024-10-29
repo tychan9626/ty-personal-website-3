@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { navLink, UserData } from '../user-data.model';
 import { SharedDataService } from '../shared-data.service';
@@ -7,7 +7,7 @@ import { NgClass, NgFor } from '@angular/common';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule,NgFor,NgClass],
+  imports: [RouterModule, NgFor, NgClass],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -17,9 +17,9 @@ export class NavbarComponent {
   externalNavLink!: navLink[];
   otherPagesNavLink!: navLink[];
 
-  isNavbarCollapsed = true;
+  @ViewChild('navbarNav', { static: false }) navbarNav!: ElementRef;
 
-  constructor(private sharedDataService: SharedDataService) {}
+  constructor(private sharedDataService: SharedDataService) { }
 
   ngOnInit() {
     this.sharedDataService.userData$.subscribe((data: UserData) => {
@@ -30,11 +30,13 @@ export class NavbarComponent {
     });
   }
 
-  toggleNavbar() {
-    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  closeMenu() {
+    if (window.innerWidth < 992) {  // 僅在小螢幕上收起菜單
+      const navbar = this.navbarNav.nativeElement;
+      if (navbar.classList.contains('show')) {
+        navbar.classList.remove('show');
+      }
+    }
   }
 
-  closeNavbar() {
-    this.isNavbarCollapsed = true; // 點擊後折疊導航欄
-  }
 }

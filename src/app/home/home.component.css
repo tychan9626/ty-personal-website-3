@@ -1,0 +1,166 @@
+/* Home component global styles START */
+.home-section-title {
+  font-size: 1.5rem;
+  scroll-margin-top: 60px;
+  line-height: 3;
+}
+/* Home component global styles END */
+
+
+/* Header styles START */
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  margin-top: -60px;
+}
+/* Header banner large START */
+.banner-large {
+  display: block;
+  margin-left: auto;
+  width: 65%;
+  height: 100%;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+.banner-small {
+  display: none;
+}
+.banner-large>p,
+.banner-large>h1,
+.banner-large-links {
+  margin-left: 10%;
+  margin-right: 30%;
+  text-shadow: 1px 1px 5px #000000;
+}
+.user-name {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.user-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+@keyframes animationBannerLargeFadeIn {
+  0% {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+    opacity: 0;
+  }
+  100% {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 55%);
+    opacity: 1;
+  }
+}
+.animationBannerLargeFadeIn {
+  opacity: 0;
+  animation: animationBannerLargeFadeIn 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+/* Header banner large END */
+/* Header banner small START */
+@media (max-width: 768px) {
+  .banner-large {
+    display: none;
+  }
+  .banner-small {
+    display: block;
+    margin-left: auto;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+  .banner-small>img,
+  .banner-small>p,
+  .banner-small>h1 {
+    margin-left: 5%;
+    margin-right: 5%;
+    text-shadow: 1px 1px 5px #000000;
+  }
+  .user-name {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .user-description {
+    font-size: 1.0rem;
+    margin-bottom: 2rem;
+  }
+}
+/* Header banner small END */
+
+
+/* Home work experience START */
+.home-work-exp {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+/* Home work experience features START */
+.home-dp01 {
+    padding: 50px;
+    margin: 10px;
+    text-align: center;
+}
+.home-dp01>img {
+    padding-bottom: 40px;
+}
+.home-dp02 {
+    padding-top: 50px;
+    padding-right: 50px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+/* Home work experience features END */
+/* Home work experience levleraged knowledge START */
+.home-work-leveraged-knowledge {
+    padding: 50px ;
+    margin: 10px;
+}
+.home-dp12 {
+    padding-top: 20px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+/* Home work experience END */
+
+/* Home software projects START */
+.software-projects {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.home-dp31, .home-dp41 {
+    padding-top: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+.home-dp22 {
+    padding-top: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+/* Home software projects END */
