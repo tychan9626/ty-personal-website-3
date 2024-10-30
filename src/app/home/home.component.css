@@ -65,6 +65,14 @@
 }
 /* Header banner large END */
 /* Header banner small START */
+@media (max-width: 992px) {
+.banner-large>p,
+.banner-large>h1,
+.banner-large-links {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+}
 @media (max-width: 768px) {
   .banner-large {
     display: none;

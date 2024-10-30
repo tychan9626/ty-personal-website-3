@@ -1,5 +1,6 @@
 <footer class="bg-dark text-white text-center py-3">
   <p>© 2024 {{ userDisplayName }} | <span *ngFor="let link of externalNavLink"><a href="{{ link.linkURL }}"
         class="text-white">{{ link.displayName}}</a> |
-    </span> Version 3.1 | Last updated: October 29, 2024</p>
+    </span> Version {{ logVersion }} | Last update: {{ logDate | date: 'yyyy-MM-dd' }}
+  </p>
 </footer>

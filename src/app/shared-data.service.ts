@@ -350,12 +350,23 @@ export class SharedDataService {
       displayCode: 'dp41',
       logDetails: [
         {
+          version: '3.2',
+          date: '2024-10-30',
+          description: [
+            'Update footer to retrive last update version and datetime from log.',
+            'Update footer and log page time format to yyyy-MM-dd.',
+            'Update home page banner large and banner small image.',
+            'Add @media max width 992px for banner display setting changes.',
+          ],
+          critical: false,
+        },
+        {
           version: '3.1',
           date: '2024-10-29',
           description: [
             'Update website content (footer, nav-bar, and sofware projects).',
           ],
-          critical: true,
+          critical: false,
         },
         {
           version: '3.0',
