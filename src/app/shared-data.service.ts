@@ -350,6 +350,14 @@ export class SharedDataService {
       displayCode: 'dp41',
       logDetails: [
         {
+          version: '3.3',
+          date: '2024-10-30',
+          description: [
+            'Update nav-bar to minimize the menu in small screen after clicking any link.',
+          ],
+          critical: false,
+        },
+        {
           version: '3.2',
           date: '2024-10-30',
           description: [

@@ -11,10 +11,10 @@
           <a class="nav-link" (click)="closeMenu()" href="{{ link.linkURL }}">{{ link.displayName }}</a>
         </li>
         <li *ngFor="let link of externalNavLink" class="nav-item">
-          <a class="nav-link" href="{{ link.linkURL }}" target="_blank">{{ link.displayName }}</a>
+          <a class="nav-link" (click)="closeMenu()" href="{{ link.linkURL }}" target="_blank">{{ link.displayName }}</a>
         </li>
         <li *ngFor="let link of otherPagesNavLink" class="nav-item">
-          <a class="nav-link" [routerLink]="[link.linkURL]">{{ link.displayName }}</a>
+          <a class="nav-link" (click)="closeMenu()" [routerLink]="[link.linkURL]">{{ link.displayName }}</a>
         </li>
       </ul>
     </div>
