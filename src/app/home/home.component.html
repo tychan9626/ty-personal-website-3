@@ -132,10 +132,9 @@
   @if (project.link.length > 0) {
   <div class="d-flex justify-content-center">
     <button class="tybtn btn btn-primary" (click)="navigateURL(project.link)" target="_blank">
-      View source code on GitHub
+      View on GitHub
     </button>
   </div>
-
   }
   <div class="home-software-projects-dp21 row">
     @for (desc of project.description; track $index) {
@@ -149,15 +148,33 @@
       }
     </div>
     }
-
   </div>
-
-
+  <div class="container bg-light">
+    <div class="home-dp21">
+      <h5>Screen captures</h5>
+      @if (project.screenCaptureLinks.length > 0) {
+      <div class="row">
+        @for (img of project.screenCaptureLinks; track $index) {
+        <div class="col-sm">
+          <img src="{{ img }}" class="img-fluid img-thumbnail">
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
 </div>
-
 } @else if (project.displayCode == "dp22") {
 <div class="container">
   <h1 class="py-1 text-center">{{ project.name }}</h1>
+  @if (project.link.length > 0) {
+  <div class="d-flex justify-content-center">
+    <button class="tybtn btn btn-primary" (click)="navigateURL(project.link)" target="_blank">
+      View on GitHub
+    </button>
+  </div>
+  <br>
+  }
   <div class="home-dp22 bg-light">
     <ul>
       @for (description of project.description; track $index) {

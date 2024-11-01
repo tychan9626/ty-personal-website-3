@@ -269,7 +269,7 @@ export class SharedDataService {
           '<b>Database</b>: <br>MongoDB (Dynamically access and modify personal data)',
           '<b>Design and Styling</b>: <br>CSS animations, media queries for adaptive layouts, Bootstrap’s grid system for responsive behavior'
         ],
-        link: 'https://github.com/tychan9626/AI-powered-Video-Super-Resolution-Tool-based-on-Convolutional-Neural-Network',
+        link: 'https://github.com/tychan9626/ty-personal-website-3',
         screenCaptureLinks: [
           'proj-personal-website-home-page.png',
           'proj-personal-website-home-page2.png'
@@ -449,6 +449,15 @@ export class SharedDataService {
     log: {
       displayCode: 'dp41',
       logDetails: [
+        {
+          version: '3.6',
+          date: '2024-11-01',
+          description: [
+            'Update software project personal website section with adding screen captures.',
+            'Add view on Github buttons to each software projects.',
+          ],
+          critical: false,
+        },
         {
           version: '3.5',
           date: '2024-11-01',
