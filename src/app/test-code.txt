@@ -8,16 +8,16 @@ Home component with all animations backup:
       <span>Navigate this home page:</span><br>
       |
       @for (link of internalNavLinks; track $index) {
-      <a class="link-light" href="{{ link.linkURL }}">{{ link.displayName }}</a> |
+      <a class="link-light" href="{{ link.url }}">{{ link.displayName }}</a> |
       }
       <br><br>
       <span>Or external links:</span><br>
       @for (link of externalNavLink; track $index) {
-      <button class="tybtn btn btn-light" (click)="navigateURL(link.linkURL)" target="_blank">{{ link.displayName
+      <button class="tybtn btn btn-light" (click)="navigateURL(link.url)" target="_blank">{{ link.displayName
         }}</button>&nbsp;
       }
       @for (link of otherPagesNavLink; track $index) {
-      <button class="tybtn btn btn-light" [routerLink]="[link.linkURL]">{{ link.displayName }}</button>
+      <button class="tybtn btn btn-light" [routerLink]="[link.url]">{{ link.displayName }}</button>
       }
     </div>
   </div>
@@ -51,14 +51,14 @@ Home component with all animations backup:
 <div class="home-work-exp row">
   @for (sum of job.summary; track sum.displayCode; let idx = $index) {
   @if (sum.displayCode == "dp01") {
-  <div class="home-dp01 slideUpFadeInAnimation col-sm {{ sum.highlightLine0 }} {{ sum.highlightLine1 }}"
+  <div class="home-dp01 slideUpFadeInAnimation col-sm {{ sum.descKey0 }} {{ sum.descKey1 }}"
     [ngStyle]="{ 'animation-delay': (idx * 0.10) + 's' }">
-    <img src="{{ sum.highlightLine2 }}" alt="{{ sum.highlightLine3 }}" class="img-fluid w-100" />
+    <img src="{{ sum.descKey2 }}" alt="{{ sum.descKey3 }}" class="img-fluid w-100" />
     <!-- Right: Text Section -->
     <p>{{ sum.text }}</p>
-    @if (sum.highlightLine4.length > 0) {
-    <button class="tybtn btn btn-primary" [routerLink]="[sum.highlightLine5]">
-      {{ sum.highlightLine4 }}
+    @if (sum.descKey4.length > 0) {
+    <button class="tybtn btn btn-primary" [routerLink]="[sum.descKey5]">
+      {{ sum.descKey4 }}
     </button>
     }
   </div>
@@ -280,17 +280,17 @@ Home component with all animations backup:
 <div class="row">
   @for (sum of job.summary; track sum.displayCode; let idx = $index) {
   @if (sum.displayCode == "dp01") {
-  <div class="home-dp01 container-fluid {{sum.highlightLine0}} {{sum.highlightLine1}}">
+  <div class="home-dp01 container-fluid {{sum.descKey0}} {{sum.descKey1}}">
     <div class="row align-items-center">
       <!-- Left: Image Section -->
       <div class="col-md-5 col-12 mb-3 mb-md-0">
-        <img src="{{sum.highlightLine2}}" alt="{{sum.highlightLine3}}" class="img-fluid w-100">
+        <img src="{{sum.descKey2}}" alt="{{sum.descKey3}}" class="img-fluid w-100">
       </div>
       <!-- Right: Text Section -->
       <div class="col-md-7 col-12">
         <p style="padding-right: 70px;">{{sum.text}}</p>
-        @if (sum.highlightLine4.length > 0) {
-        <button class="btn btn-primary" [routerLink]="[sum.highlightLine5]">{{sum.highlightLine4}}</button>
+        @if (sum.descKey4.length > 0) {
+        <button class="btn btn-primary" [routerLink]="[sum.descKey5]">{{sum.descKey4}}</button>
         }
       </div>
     </div>
@@ -312,17 +312,17 @@ Home component with all animations backup:
   <ng-container *ngFor="let sum of job.summary; let i = index">
     <div *ngIf="i % 2 === 0" class="col-6">
       <div class="list-group-item">
-        <div class="home-dp01 container-fluid {{sum.highlightLine0}} {{sum.highlightLine1}}">
+        <div class="home-dp01 container-fluid {{sum.descKey0}} {{sum.descKey1}}">
           <div class="row align-items-center">
             <!-- Left: Image Section -->
             <div class="col-md-5 col-12 mb-3 mb-md-0">
-              <img src="{{sum.highlightLine2}}" alt="{{sum.highlightLine3}}" class="img-fluid w-100">
+              <img src="{{sum.descKey2}}" alt="{{sum.descKey3}}" class="img-fluid w-100">
             </div>
             <!-- Right: Text Section -->
             <div class="col-md-7 col-12">
               <p style="padding-right: 70px;">{{sum.text}}</p>
-              @if (sum.highlightLine4.length > 0) {
-              <button class="btn btn-primary" [routerLink]="[sum.highlightLine5]">{{sum.highlightLine4}}</button>
+              @if (sum.descKey4.length > 0) {
+              <button class="btn btn-primary" [routerLink]="[sum.descKey5]">{{sum.descKey4}}</button>
               }
             </div>
           </div>
@@ -331,17 +331,17 @@ Home component with all animations backup:
     </div>
     <div *ngIf="i % 2 === 1" class="col-6">
       <div class="list-group-item">
-        <div class="home-dp01 container-fluid {{sum.highlightLine0}} {{sum.highlightLine1}}">
+        <div class="home-dp01 container-fluid {{sum.descKey0}} {{sum.descKey1}}">
           <div class="row align-items-center">
             <!-- Left: Image Section -->
             <div class="col-md-5 col-12 mb-3 mb-md-0">
-              <img src="{{sum.highlightLine2}}" alt="{{sum.highlightLine3}}" class="img-fluid w-100">
+              <img src="{{sum.descKey2}}" alt="{{sum.descKey3}}" class="img-fluid w-100">
             </div>
             <!-- Right: Text Section -->
             <div class="col-md-7 col-12">
               <p style="padding-right: 70px;">{{sum.text}}</p>
-              @if (sum.highlightLine4.length > 0) {
-              <button class="btn btn-primary" [routerLink]="[sum.highlightLine5]">{{sum.highlightLine4}}</button>
+              @if (sum.descKey4.length > 0) {
+              <button class="btn btn-primary" [routerLink]="[sum.descKey5]">{{sum.descKey4}}</button>
               }
             </div>
           </div>

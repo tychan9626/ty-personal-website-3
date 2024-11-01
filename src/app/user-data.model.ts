@@ -5,22 +5,22 @@ export interface userImg {
 }
 
 export interface navLink {
-  linkURL: string;
+  url: string;
   displayName: string;
 }
 
 export interface description {
-  text: string;
-  highlightLine0: string;
-  highlightLine1: string;
-  highlightLine2: string;
-  highlightLine3: string;
-  highlightLine4: string;
-  highlightLine5: string;
-  highlightLine6: string;
-  highlightLine7: string;
-  highlightLine8: string;
-  highlightLine9: string;
+  desc: string;
+  descKey0: string;
+  descKey1: string;
+  descKey2: string;
+  descKey3: string;
+  descKey4: string;
+  descKey5: string;
+  descKey6: string;
+  descKey7: string;
+  descKey8: string;
+  descKey9: string;
 }
 
 export interface skillsSet {
@@ -51,7 +51,7 @@ export interface workExperience {
 export interface softwareProjects {
   displayCode: string;
   name: string;
-  description: string[];
+  description: description[];
   skills: string[];
   link: string;
   screenCaptureLinks: string[];
@@ -91,6 +91,18 @@ export interface log {
   logDetails: logDetails[];
 }
 
+export interface creditDetails {
+  title: string;
+  info: string;
+  active: boolean;
+  remarks: string;
+}
+
+export interface credit {
+  displayCode: string;
+  creditDetails: creditDetails[];
+}
+
 export interface UserData {
   userLegalFirstName: string;
   userLegalLastName: string;
@@ -113,4 +125,6 @@ export interface UserData {
   technicalSkills: technicalSkills;
 
   log: log;
+
+  credit: credit;
 }

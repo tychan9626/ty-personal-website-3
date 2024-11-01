@@ -16,22 +16,22 @@ export class SharedDataService {
       'banner': 'CTY_Banner_right.jpg'
     },
     internalNavLink: [
-      { linkURL: '#work_experience', displayName: 'Work Experience' },
-      { linkURL: '#software_projects', displayName: 'Software Projects' },
-      { linkURL: '#education', displayName: 'Education' },
-      { linkURL: '#technical_skills', displayName: 'Technical Skills' },
-      { linkURL: '#contact_me', displayName: 'Contact Me' },
+      { url: '#work_experience', displayName: 'Work Experience' },
+      { url: '#software_projects', displayName: 'Software Projects' },
+      { url: '#education', displayName: 'Education' },
+      { url: '#technical_skills', displayName: 'Technical Skills' },
+      { url: '#contact_me', displayName: 'Contact Me' },
     ],
     otherPagesNavLink: [
       {
-        linkURL: '/log',
+        url: '/log',
         displayName: 'Website log',
       },
     ],
     externalNavLink: [
-      { linkURL: 'https://github.com/tychan9626', displayName: 'GitHub' },
+      { url: 'https://github.com/tychan9626', displayName: 'GitHub' },
       {
-        linkURL: 'https://www.linkedin.com/in/ty-chan-192b681a5/',
+        url: 'https://www.linkedin.com/in/ty-chan-192b681a5/',
         displayName: 'LinkedIn',
       },
     ],
@@ -48,48 +48,49 @@ export class SharedDataService {
           displayCode: 'dp01',
           description: [
             {
-              text: "Reduced the speed of loading patient's allergy information in Prescription Information System by 60% through revamping key components for reading patients' data from the government's API.",
-              highlightLine0: 'text-dark',
-              highlightLine1: 'bg-light',
-              highlightLine2: 'job-sth-feature-1.png',
-              highlightLine3: 'Loading speed reduced by 60% for patient data',
-              highlightLine4: '', //Details
-              highlightLine5: '', ///feature/sth-reduce-load-speed
-              highlightLine6: '',
-              highlightLine7: '',
-              highlightLine8: '',
-              highlightLine9: '',
+              desc: "Reduced the speed of loading patient's allergy information in Prescription Information System by 60% through revamping key components for reading patients' data from the government's API.",
+              descKey0: 'text-dark',
+              descKey1: 'bg-light',
+              descKey2: 'job-sth-feature-1.png',
+              descKey3: 'Loading speed reduced by 60% for patient data',
+              descKey4: '', //Details
+              descKey5: '', ///feature/sth-reduce-load-speed
+              descKey6: '',
+              descKey7: '',
+              descKey8: '',
+              descKey9: '',
             },
             {
-              text: 'Redesigned the backup and local database solution used in the Pharmacy for reducing manual interventions during server outages by implementing automatic data and database schema synchronization with the central server.',
-              highlightLine0: 'text-dark',
-              highlightLine1: 'bg-light',
-              highlightLine2: 'job-sth-feature-2.png',
-              highlightLine3: 'Automatic database synchronization',
-              highlightLine4: '', //Details
-              highlightLine5: '', ///feature/sth-sync-db
-              highlightLine6: '',
-              highlightLine7: '',
-              highlightLine8: '',
-              highlightLine9: '',
+              desc: 'Redesigned the backup and local database solution used in the Pharmacy for reducing manual interventions during server outages by implementing automatic data and database schema synchronization with the central server.',
+              descKey0: 'text-dark',
+              descKey1: 'bg-light',
+              descKey2: 'job-sth-feature-2.png',
+              descKey3: 'Automatic database synchronization',
+              descKey4: '', //Details
+              descKey5: '', ///feature/sth-sync-db
+              descKey6: '',
+              descKey7: '',
+              descKey8: '',
+              descKey9: '',
             },
             {
-              text: 'Integrated Lexicomp modules into Doctor, Pharmacy, and Ward Systems, providing real-time comprehensive drug data that empowered over 200 medical staffs to make more informed decisions.',
-              highlightLine0: 'text-dark',
-              highlightLine1: 'bg-light',
-              highlightLine2: 'job-sth-feature-3.png',
-              highlightLine3: 'Integrated modules for 200 medical staffs',
-              highlightLine4: '',
-              highlightLine5: '',
-              highlightLine6: '',
-              highlightLine7: '',
-              highlightLine8: '',
-              highlightLine9: '',
+              desc: 'Integrated Lexicomp modules into Doctor, Pharmacy, and Ward Systems, providing real-time comprehensive drug data that empowered over 200 medical staffs to make more informed decisions.',
+              descKey0: 'text-dark',
+              descKey1: 'bg-light',
+              descKey2: 'job-sth-feature-3.png',
+              descKey3: 'Integrated modules for 200 medical staffs',
+              descKey4: '',
+              descKey5: '',
+              descKey6: '',
+              descKey7: '',
+              descKey8: '',
+              descKey9: '',
             },
           ]
         },
         skillsList: {
-          displayCode: 'dp11', skillsSet: [
+          displayCode: 'dp11',
+          skillsSet: [
             {
               title: "Programming Languages & Frameworks",
               items: [
@@ -142,50 +143,52 @@ export class SharedDataService {
         startDate: '2020-06-07',
         endDate: '2021-06-30',
         summary: {
-          displayCode: 'dp02', description: [
+          displayCode: 'dp02',
+          description: [
             {
-              text: "Reduced manual workload for 70% in handling client FTP requests by developing and deploying a Java-based FTP automation solution which structured and executed commands based on client requirements, streamlining the process.",
-              highlightLine0: 'text-dark',
-              highlightLine1: 'bg-light',
-              highlightLine2: '',
-              highlightLine3: '',
-              highlightLine4: '',
-              highlightLine5: '',
-              highlightLine6: '',
-              highlightLine7: '',
-              highlightLine8: '',
-              highlightLine9: '',
+              desc: "Reduced manual workload for 70% in handling client FTP requests by developing and deploying a Java-based FTP automation solution which structured and executed commands based on client requirements, streamlining the process.",
+              descKey0: 'text-dark',
+              descKey1: 'bg-light',
+              descKey2: '',
+              descKey3: '',
+              descKey4: '',
+              descKey5: '',
+              descKey6: '',
+              descKey7: '',
+              descKey8: '',
+              descKey9: '',
             },
             {
-              text: "Led the migration of 120 users' PCs, ensuring minimal downtime through an efficient process.",
-              highlightLine0: 'text-dark',
-              highlightLine1: 'bg-light',
-              highlightLine2: '',
-              highlightLine3: '',
-              highlightLine4: '',
-              highlightLine5: '',
-              highlightLine6: '',
-              highlightLine7: '',
-              highlightLine8: '',
-              highlightLine9: '',
+              desc: "Led the migration of 120 users' PCs, ensuring minimal downtime through an efficient process.",
+              descKey0: 'text-dark',
+              descKey1: 'bg-light',
+              descKey2: '',
+              descKey3: '',
+              descKey4: '',
+              descKey5: '',
+              descKey6: '',
+              descKey7: '',
+              descKey8: '',
+              descKey9: '',
             },
             {
-              text: "Improved collaboration efficiency by 30% during the pandemic through provided technical guidance and created tutorials for using remote computing and video conferencing tools.",
-              highlightLine0: 'text-dark',
-              highlightLine1: 'bg-light',
-              highlightLine2: '',
-              highlightLine3: '',
-              highlightLine4: '',
-              highlightLine5: '',
-              highlightLine6: '',
-              highlightLine7: '',
-              highlightLine8: '',
-              highlightLine9: '',
+              desc: "Improved collaboration efficiency by 30% during the pandemic through provided technical guidance and created tutorials for using remote computing and video conferencing tools.",
+              descKey0: 'text-dark',
+              descKey1: 'bg-light',
+              descKey2: '',
+              descKey3: '',
+              descKey4: '',
+              descKey5: '',
+              descKey6: '',
+              descKey7: '',
+              descKey8: '',
+              descKey9: '',
             },
           ]
         },
         skillsList: {
-          displayCode: 'dp12', skillsSet: [
+          displayCode: 'dp12',
+          skillsSet: [
             {
               title: "Programming Languages",
               items: [
@@ -217,12 +220,48 @@ export class SharedDataService {
     ],
     softwareProjects: [
       {
-        displayCode: 'dp22',
-        name: 'TY Personal Website ',
+        displayCode: 'dp21',
+        name: 'TY Personal Website',
         description: [
-          "<b>Responsive and Adaptive Design</b>: <br>Created a modern personal website that adapts to various screen sizes, with optimized layouts and transitions for both wide and small screens. Enhanced user experience with dynamic animations and smooth, layered gradient effects.",
-          "<b>Frontend Development with Angular and Bootstrap</b>: <br>Built using Angular for modular component management and Bootstrap’s grid system for responsive styling. Customized CSS animations and media queries to ensure seamless visual consistency across devices.",
-          "<b>Backend Integration and API Handling</b>: <br>Integrated with Node.js for efficient form handling and API calls, with potential MongoDB backend support for dynamic data management."
+          {
+            desc: "Created a modern personal website that adapts to various screen sizes, with optimized layouts and transitions for both wide and small screens. Enhanced user experience with dynamic animations and smooth, layered gradient effects.",
+            descKey0: 'text-dark',
+            descKey1: 'bg-light',
+            descKey2: 'proj_personal-website-responsive-design.png',
+            descKey3: 'Responsive and Adaptive Design',
+            descKey4: '',
+            descKey5: '',
+            descKey6: '',
+            descKey7: '',
+            descKey8: '',
+            descKey9: '',
+          },
+          {
+            desc: "Built using Angular for modular component management and Bootstrap’s grid system for responsive styling. Customized CSS animations and media queries to ensure seamless visual consistency across devices.",
+            descKey0: 'text-dark',
+            descKey1: 'bg-light',
+            descKey2: 'proj_personal-website-angular-bootstrap.png',
+            descKey3: 'Frontend Development with Angular and Bootstrap',
+            descKey4: '',
+            descKey5: '',
+            descKey6: '',
+            descKey7: '',
+            descKey8: '',
+            descKey9: '',
+          },
+          {
+            desc: "Integrated with Node.js for efficient form handling and API calls, with potential MongoDB backend support for dynamic data management.",
+            descKey0: 'text-dark',
+            descKey1: 'bg-light',
+            descKey2: 'proj_personal-website-fe-be-db.png',
+            descKey3: 'Backend Integration and API Handling',
+            descKey4: '',
+            descKey5: '',
+            descKey6: '',
+            descKey7: '',
+            descKey8: '',
+            descKey9: '',
+          }
         ],
         skills: [
           '<b>Frontend</b>: <br>Angular, TypeScript, HTML, CSS, Bootstrap',
@@ -240,8 +279,32 @@ export class SharedDataService {
         displayCode: 'dp22',
         name: 'AI-powered Video Super Resolution Tool based on Convolutional Neural Network (CNN)',
         description: [
-          "Utilizing the Image Super-Resolution Using Deep Convolutional Networks (SR-CNN) algorithm to upscale low-resolution videos into high definition. Integrated deep learning techniques to enhance image clarity, reduce noise, and restore fine details, resulting in sharper and more realistic outputs.",
-          "Supported a wide range of video formats; offered customizable settings, enabling users to adjust resolution, processing intensity, and output quality based on their specific requirements."
+          {
+            desc: "Utilizing the Image Super-Resolution Using Deep Convolutional Networks (SR-CNN) algorithm to upscale low-resolution videos into high definition. Integrated deep learning techniques to enhance image clarity, reduce noise, and restore fine details, resulting in sharper and more realistic outputs.",
+            descKey0: 'text-dark',
+            descKey1: 'bg-light',
+            descKey2: '',
+            descKey3: '',
+            descKey4: '',
+            descKey5: '',
+            descKey6: '',
+            descKey7: '',
+            descKey8: '',
+            descKey9: '',
+          },
+          {
+            desc: "Supported a wide range of video formats; offered customizable settings, enabling users to adjust resolution, processing intensity, and output quality based on their specific requirements.",
+            descKey0: 'text-dark',
+            descKey1: 'bg-light',
+            descKey2: '',
+            descKey3: '',
+            descKey4: '',
+            descKey5: '',
+            descKey6: '',
+            descKey7: '',
+            descKey8: '',
+            descKey9: '',
+          }
         ],
         skills: [
           'Python',
@@ -265,8 +328,45 @@ export class SharedDataService {
         displayCode: 'dp22',
         name: 'Big 2 Poker game play with command line interface',
         description: [
-          "Implemented game mechanics that followed official Big 2 rules, including card ranking, turn logic, and winning conditions.",
-          "Integrated error handling and validation to ensure only valid moves are allowed, enhancing the stability and user experience of the game."
+          {
+            desc: "Implemented game mechanics that followed official Big 2 rules, including card ranking, turn logic, and winning conditions.",
+            descKey0: 'text-dark',
+            descKey1: 'bg-light',
+            descKey2: '',
+            descKey3: '',
+            descKey4: '',
+            descKey5: '',
+            descKey6: '',
+            descKey7: '',
+            descKey8: '',
+            descKey9: '',
+          },
+          {
+            desc: "Integrated error handling and validation to ensure only valid moves are allowed, enhancing the stability and user experience of the game.",
+            descKey0: 'text-dark',
+            descKey1: 'bg-light',
+            descKey2: '',
+            descKey3: '',
+            descKey4: '',
+            descKey5: '',
+            descKey6: '',
+            descKey7: '',
+            descKey8: '',
+            descKey9: '',
+          },
+          {
+            desc: "Integrated with Node.js for efficient form handling and API calls, with potential MongoDB backend support for dynamic data management.",
+            descKey0: 'text-dark',
+            descKey1: 'bg-light',
+            descKey2: 'Backend Integration and API Handling',
+            descKey3: '',
+            descKey4: '',
+            descKey5: '',
+            descKey6: '',
+            descKey7: '',
+            descKey8: '',
+            descKey9: '',
+          }
         ],
         skills: [
           'Java',
@@ -349,6 +449,22 @@ export class SharedDataService {
     log: {
       displayCode: 'dp41',
       logDetails: [
+        {
+          version: '3.5',
+          date: '2024-11-01',
+          description: [
+            'Update software project personal website section layout.',
+          ],
+          critical: false,
+        },
+        {
+          version: '3.4',
+          date: '2024-10-31',
+          description: [
+            'Renamed shared data service variables to be more descriptive.',
+          ],
+          critical: false,
+        },
         {
           version: '3.3',
           date: '2024-10-30',
@@ -465,6 +581,35 @@ export class SharedDataService {
         },
       ]
     },
+    credit: {
+      displayCode: 'dp51',
+      creditDetails: [
+        {
+          title: 'Responsive website design image',
+          info: 'Image by <a href="https://pixabay.com/users/kreatikar-8562930/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6351151">Mudassar Iqbal</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6351151">Pixabay</a>',
+          active: false,
+          remarks: 'Imaged removed from website.'
+        },
+        {
+          title: 'Frontend icon',
+          info: '<a href="https://www.flaticon.com/free-icons/design" title="design icons">Design icons created by Freepik - Flaticon</a>',
+          active: true,
+          remarks: ''
+        },
+        {
+          title: 'Backend icon',
+          info: '<a href="https://www.flaticon.com/free-icons/backend" title="backend icons">Backend icons created by Flat Icons - Flaticon</a>',
+          active: true,
+          remarks: ''
+        },
+        {
+          title: 'Database icon',
+          info: '<a href="https://www.flaticon.com/free-icons/server-admin" title="server admin icons">Server admin icons created by ranksol graphics - Flaticon</a>',
+          active: true,
+          remarks: ''
+        }
+      ]
+    }
   };
 
   private userDataSource = new BehaviorSubject<UserData>(this.userData);
