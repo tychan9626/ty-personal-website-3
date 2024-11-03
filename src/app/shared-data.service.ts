@@ -33,7 +33,7 @@ export class SharedDataService {
       {
         url: 'https://www.linkedin.com/in/ty-chan-192b681a5/',
         displayName: 'LinkedIn',
-      },
+      }
     ],
     userSummary:
       'Results-driven software developer with 2.5 years of experience in the industry. Proficient in building scalable applications, full-stack development, cloud technologies, and system design. Demonstrated strong problem-solving skills with a proven track record of boosting system performance and reliability. Fast learner of new technologies with a commitment to delivering high-quality code.',
@@ -449,6 +449,14 @@ export class SharedDataService {
     log: {
       displayCode: 'dp41',
       logDetails: [
+        {
+          version: '3.7',
+          date: '2024-11-02',
+          description: [
+            'Fix bug: click button to open external links will open in new tab.',
+          ],
+          critical: false,
+        },
         {
           version: '3.6',
           date: '2024-11-01',
