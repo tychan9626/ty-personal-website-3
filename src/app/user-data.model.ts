@@ -128,3 +128,7 @@ export interface UserData {
 
   credit: credit;
 }
+
+export interface SecretDoorData {
+  loginBgImg: string;
+}

@@ -43,12 +43,6 @@ export class HomeComponent {
     });
   }
 
-
-
-  openDialog() {
-    alert('This is a dynamic dialog!');
-  }
-
   navigateURL(url: string) {
     window.open(url, '_blank');
   }

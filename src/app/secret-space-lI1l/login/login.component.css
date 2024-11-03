@@ -1,0 +1,31 @@
+/* Home component global styles START */
+.login-title {
+  font-size: 2.5rem;
+  line-height: 0.9;
+}
+/* Home component global styles END */
+
+.login {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  margin-top: -60px;
+  background-color: #f1f7fd;
+}
+
+.login-block {
+    padding: 50px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    background-color: #ffffff;
+}
+
+.larger-line-height {
+  line-height: 2.5rem;
+}
+

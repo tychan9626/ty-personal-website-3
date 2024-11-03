@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserData, description } from './user-data.model';
+import { SecretDoorData, UserData } from './user-data.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -450,6 +450,14 @@ export class SharedDataService {
       displayCode: 'dp41',
       logDetails: [
         {
+          version: '3.8',
+          date: '2024-11-03',
+          description: [
+            'Added secured space and login function.',
+          ],
+          critical: false,
+        },
+        {
           version: '3.7',
           date: '2024-11-02',
           description: [
@@ -628,9 +636,15 @@ export class SharedDataService {
       ]
     }
   };
-
   private userDataSource = new BehaviorSubject<UserData>(this.userData);
   userData$ = this.userDataSource.asObservable();
+
+
+  private secretDoorData: SecretDoorData = {
+    loginBgImg: '',
+  }
+  private secretDoorDataSource = new BehaviorSubject<SecretDoorData>(this.secretDoorData);
+  secretDoorData$ = this.secretDoorDataSource.asObservable();
 
   constructor() { }
 }

@@ -1,6 +1,10 @@
 <footer class="bg-dark text-white text-center py-3">
-  <p>© 2024 {{ userDisplayName }} | <span *ngFor="let link of externalNavLink"><a href="{{ link.url }}"
+  <p>
+    <a class="text-dark">Secret door</a>
+    © 2024 {{ userDisplayName }} | <span *ngFor="let link of externalNavLink"><a href="{{ link.url }}"
         class="text-white">{{ link.displayName}}</a> |
     </span> Version {{ logVersion }} | Last update: {{ logDate | date: 'yyyy-MM-dd' }}
+    <span class="text-dark">Secret doo</span><a class="text-dark" href="/secret-space-lI1l/login">r</a>
   </p>
+
 </footer>
