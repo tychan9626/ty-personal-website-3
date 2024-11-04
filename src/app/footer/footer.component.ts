@@ -1,4 +1,4 @@
-import { log } from './../user-data.model';
+import { log, testRenderApi } from './../user-data.model';
 import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from '../shared-data.service';
 import { navLink, UserData } from '../user-data.model';
@@ -17,6 +17,9 @@ export class FooterComponent implements OnInit {
   logVersion!: string;
   logDate!: string;
 
+  testData: any;
+
+
   constructor(private sharedDataService: SharedDataService) { }
 
   ngOnInit() {
@@ -26,5 +29,17 @@ export class FooterComponent implements OnInit {
       this.logVersion = data.log.logDetails[0].version;
       this.logDate = data.log.logDetails[0].date;
     });
+    this.sharedDataService.getRenderTestData().subscribe(
+      (response) => {
+        if (response && response.length > 0) {
+          this.testData = response;
+        }
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
   }
+
+
 }

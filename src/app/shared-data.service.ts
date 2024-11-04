@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { SecretDoorData, UserData } from './user-data.model';
-import { BehaviorSubject } from 'rxjs';
+import { testRenderApi, UserData } from './user-data.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedDataService {
+  private apiUrl = 'https://ty-personal-website-3-be.onrender.com/'; // Render API URL
   private userData: UserData = {
     userLegalFirstName: 'Tsz Yin',
     userLegalLastName: 'Chan',
@@ -450,6 +452,14 @@ export class SharedDataService {
       displayCode: 'dp41',
       logDetails: [
         {
+          version: '3.9',
+          date: '2024-11-04',
+          description: [
+            'Implement API call data for testing.',
+          ],
+          critical: false,
+        },
+        {
           version: '3.8',
           date: '2024-11-03',
           description: [
@@ -639,12 +649,15 @@ export class SharedDataService {
   private userDataSource = new BehaviorSubject<UserData>(this.userData);
   userData$ = this.userDataSource.asObservable();
 
-
-  private secretDoorData: SecretDoorData = {
-    loginBgImg: '',
+  private testRenderData: testRenderApi = {
+    message: '',
   }
-  private secretDoorDataSource = new BehaviorSubject<SecretDoorData>(this.secretDoorData);
-  secretDoorData$ = this.secretDoorDataSource.asObservable();
+  private testRenderDataSource = new BehaviorSubject<testRenderApi>(this.testRenderData);
+  testRenderDataSource$ = this.testRenderDataSource.asObservable();
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getRenderTestData(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}test`);
+  }
 }

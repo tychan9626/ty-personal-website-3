@@ -129,6 +129,6 @@ export interface UserData {
   credit: credit;
 }
 
-export interface SecretDoorData {
-  loginBgImg: string;
+export interface testRenderApi {
+  message: string;
 }

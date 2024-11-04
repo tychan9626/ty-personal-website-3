@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
 export class LoginComponent {
   bCreateAccount = true;
   bForgetEmail = true;
+  bNext = true;
 
   clickForgetEmail() {
     alert('Forget Email function is not available.');
@@ -20,4 +21,8 @@ export class LoginComponent {
     this.bCreateAccount = false;
   }
 
+  clickNext() {
+    alert('Next is not available.');
+    this.bNext = false;
+  }
 }

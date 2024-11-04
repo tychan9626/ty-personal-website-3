@@ -32,7 +32,8 @@
             <button class="tybtn btn btn-light rounded-pill" (click)="clickCreateAccount()"
               [disabled]="!bCreateAccount">Create
               account</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="submit" class="tybtn btn btn-primary rounded-pill">Next</button>
+            <button type="submit" class="tybtn btn btn-primary rounded-pill" (click)="clickNext()"
+              [disabled]="!bNext">Next</button>
           </div>
 
         </div>
