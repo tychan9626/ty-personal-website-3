@@ -5,9 +5,12 @@
     <div class="col-md-2 col-12 mb-3 mb-md-0">
       @if (log.critical) {
       <h5>Version</h5>
-      <h5 class="log-critical">{{ log.version }}</h5>
+      <h5 class="log-critical">{{ log.version.major }}.{{ log.version.minor }}{{ log.version.patch !== undefined ? '.' +
+        log.version.patch : '' }}</h5>
       } @else {
-      <h5>Version {{ log.version }}</h5>
+      <h5>Version {{ log.version.major }}.{{ log.version.minor }}{{ log.version.patch !== undefined ? '.' +
+        log.version.patch : '' }}
+      </h5>
       }
       <span>{{ log.date | date: 'yyyy-MM-dd' }}</span>
 

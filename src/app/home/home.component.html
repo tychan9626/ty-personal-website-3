@@ -62,7 +62,7 @@
   <div class="home-dp01 col-sm {{ sum.descKey0 }} {{ sum.descKey1 }}">
     <img src="{{ sum.descKey2 }}" alt="{{ sum.descKey3 }}" class="img-fluid w-100" />
     <p>{{ sum.desc }}</p>
-    @if (sum.descKey4.length > 0) {
+    @if (sum.descKey4 !== undefined && sum.descKey4.length > 0) {
     <button class="tybtn btn btn-primary rounded-pill" [routerLink]="[sum.descKey5]">
       {{ sum.descKey4 }}
     </button>
@@ -143,7 +143,7 @@
     <div class="home-dp01 col-sm {{ desc.descKey0 }} {{ desc.descKey1 }}">
       <img src="{{ desc.descKey2 }}" alt="{{ desc.descKey3 }}" class="img-fluid w-100" />
       <p>{{ desc.desc }}</p>
-      @if (desc.descKey4.length > 0) {
+      @if (desc.descKey4!== undefined && desc.descKey4.length > 0) {
       <button class="tybtn btn btn-primary rounded-pill" [routerLink]="[desc.descKey5]">
         {{ desc.descKey4 }}
       </button>

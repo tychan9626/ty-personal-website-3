@@ -1,4 +1,4 @@
-import { log, testRenderApi } from './../user-data.model';
+import { log, testRenderApi, version } from './../user-data.model';
 import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from '../shared-data.service';
 import { navLink, UserData } from '../user-data.model';
@@ -14,7 +14,7 @@ import { DatePipe, NgFor } from '@angular/common';
 export class FooterComponent implements OnInit {
   userDisplayName!: string;
   externalNavLink!: navLink[];
-  logVersion!: string;
+  logVersion!: version;
   logDate!: string;
 
   testData: any;

@@ -11,16 +11,16 @@ export interface navLink {
 
 export interface description {
   desc: string;
-  descKey0: string;
-  descKey1: string;
-  descKey2: string;
-  descKey3: string;
-  descKey4: string;
-  descKey5: string;
-  descKey6: string;
-  descKey7: string;
-  descKey8: string;
-  descKey9: string;
+  descKey0?: string;
+  descKey1?: string;
+  descKey2?: string;
+  descKey3?: string;
+  descKey4?: string;
+  descKey5?: string;
+  descKey6?: string;
+  descKey7?: string;
+  descKey8?: string;
+  descKey9?: string;
 }
 
 export interface skillsSet {
@@ -69,8 +69,14 @@ export interface education {
   otherCourses: string[];
 }
 
+export interface version {
+  major: number;
+  minor: number;
+  patch?: number;
+}
+
 export interface logDetails {
-  version: string;
+  version: version;
   date: string;
   description: string[];
   critical: boolean;

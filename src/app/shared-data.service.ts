@@ -57,10 +57,6 @@ export class SharedDataService {
               descKey3: 'Loading speed reduced by 60% for patient data',
               descKey4: '', //Details
               descKey5: '', ///feature/sth-reduce-load-speed
-              descKey6: '',
-              descKey7: '',
-              descKey8: '',
-              descKey9: '',
             },
             {
               desc: 'Redesigned the backup and local database solution used in the Pharmacy for reducing manual interventions during server outages by implementing automatic data and database schema synchronization with the central server.',
@@ -70,10 +66,6 @@ export class SharedDataService {
               descKey3: 'Automatic database synchronization',
               descKey4: '', //Details
               descKey5: '', ///feature/sth-sync-db
-              descKey6: '',
-              descKey7: '',
-              descKey8: '',
-              descKey9: '',
             },
             {
               desc: 'Integrated Lexicomp modules into Doctor, Pharmacy, and Ward Systems, providing real-time comprehensive drug data that empowered over 200 medical staffs to make more informed decisions.',
@@ -81,12 +73,6 @@ export class SharedDataService {
               descKey1: 'bg-light',
               descKey2: 'job-sth-feature-3.png',
               descKey3: 'Integrated modules for 200 medical staffs',
-              descKey4: '',
-              descKey5: '',
-              descKey6: '',
-              descKey7: '',
-              descKey8: '',
-              descKey9: '',
             },
           ]
         },
@@ -151,40 +137,16 @@ export class SharedDataService {
               desc: "Reduced manual workload for 70% in handling client FTP requests by developing and deploying a Java-based FTP automation solution which structured and executed commands based on client requirements, streamlining the process.",
               descKey0: 'text-dark',
               descKey1: 'bg-light',
-              descKey2: '',
-              descKey3: '',
-              descKey4: '',
-              descKey5: '',
-              descKey6: '',
-              descKey7: '',
-              descKey8: '',
-              descKey9: '',
             },
             {
               desc: "Led the migration of 120 users' PCs, ensuring minimal downtime through an efficient process.",
               descKey0: 'text-dark',
               descKey1: 'bg-light',
-              descKey2: '',
-              descKey3: '',
-              descKey4: '',
-              descKey5: '',
-              descKey6: '',
-              descKey7: '',
-              descKey8: '',
-              descKey9: '',
             },
             {
               desc: "Improved collaboration efficiency by 30% during the pandemic through provided technical guidance and created tutorials for using remote computing and video conferencing tools.",
               descKey0: 'text-dark',
               descKey1: 'bg-light',
-              descKey2: '',
-              descKey3: '',
-              descKey4: '',
-              descKey5: '',
-              descKey6: '',
-              descKey7: '',
-              descKey8: '',
-              descKey9: '',
             },
           ]
         },
@@ -231,12 +193,6 @@ export class SharedDataService {
             descKey1: 'bg-light',
             descKey2: 'proj_personal-website-responsive-design.png',
             descKey3: 'Responsive and Adaptive Design',
-            descKey4: '',
-            descKey5: '',
-            descKey6: '',
-            descKey7: '',
-            descKey8: '',
-            descKey9: '',
           },
           {
             desc: "Built using Angular for modular component management and Bootstrap’s grid system for responsive styling. Customized CSS animations and media queries to ensure seamless visual consistency across devices.",
@@ -244,12 +200,6 @@ export class SharedDataService {
             descKey1: 'bg-light',
             descKey2: 'proj_personal-website-angular-bootstrap.png',
             descKey3: 'Frontend Development with Angular and Bootstrap',
-            descKey4: '',
-            descKey5: '',
-            descKey6: '',
-            descKey7: '',
-            descKey8: '',
-            descKey9: '',
           },
           {
             desc: "Integrated with Node.js for efficient form handling and API calls, with potential MongoDB backend support for dynamic data management.",
@@ -257,12 +207,6 @@ export class SharedDataService {
             descKey1: 'bg-light',
             descKey2: 'proj_personal-website-fe-be-db.png',
             descKey3: 'Backend Integration and API Handling',
-            descKey4: '',
-            descKey5: '',
-            descKey6: '',
-            descKey7: '',
-            descKey8: '',
-            descKey9: '',
           }
         ],
         skills: [
@@ -285,27 +229,11 @@ export class SharedDataService {
             desc: "Utilizing the Image Super-Resolution Using Deep Convolutional Networks (SR-CNN) algorithm to upscale low-resolution videos into high definition. Integrated deep learning techniques to enhance image clarity, reduce noise, and restore fine details, resulting in sharper and more realistic outputs.",
             descKey0: 'text-dark',
             descKey1: 'bg-light',
-            descKey2: '',
-            descKey3: '',
-            descKey4: '',
-            descKey5: '',
-            descKey6: '',
-            descKey7: '',
-            descKey8: '',
-            descKey9: '',
           },
           {
             desc: "Supported a wide range of video formats; offered customizable settings, enabling users to adjust resolution, processing intensity, and output quality based on their specific requirements.",
             descKey0: 'text-dark',
             descKey1: 'bg-light',
-            descKey2: '',
-            descKey3: '',
-            descKey4: '',
-            descKey5: '',
-            descKey6: '',
-            descKey7: '',
-            descKey8: '',
-            descKey9: '',
           }
         ],
         skills: [
@@ -334,40 +262,17 @@ export class SharedDataService {
             desc: "Implemented game mechanics that followed official Big 2 rules, including card ranking, turn logic, and winning conditions.",
             descKey0: 'text-dark',
             descKey1: 'bg-light',
-            descKey2: '',
-            descKey3: '',
-            descKey4: '',
-            descKey5: '',
-            descKey6: '',
-            descKey7: '',
-            descKey8: '',
-            descKey9: '',
           },
           {
             desc: "Integrated error handling and validation to ensure only valid moves are allowed, enhancing the stability and user experience of the game.",
             descKey0: 'text-dark',
             descKey1: 'bg-light',
-            descKey2: '',
-            descKey3: '',
-            descKey4: '',
-            descKey5: '',
-            descKey6: '',
-            descKey7: '',
-            descKey8: '',
-            descKey9: '',
           },
           {
             desc: "Integrated with Node.js for efficient form handling and API calls, with potential MongoDB backend support for dynamic data management.",
             descKey0: 'text-dark',
             descKey1: 'bg-light',
             descKey2: 'Backend Integration and API Handling',
-            descKey3: '',
-            descKey4: '',
-            descKey5: '',
-            descKey6: '',
-            descKey7: '',
-            descKey8: '',
-            descKey9: '',
           }
         ],
         skills: [
@@ -452,7 +357,23 @@ export class SharedDataService {
       displayCode: 'dp41',
       logDetails: [
         {
-          version: '3.9',
+          version: {
+            major: 3,
+            minor: 10,
+          },
+          date: '2024-11-10',
+          description: [
+            'Split version code into structure instead of one string.',
+            'Move API test content to test page.',
+            'Remove direct access of secret space.',
+          ],
+          critical: false,
+        },
+        {
+          version: {
+            major: 3,
+            minor: 9,
+          },
           date: '2024-11-04',
           description: [
             'Implement API call data for testing.',
@@ -460,7 +381,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '3.8',
+          version: {
+            major: 3,
+            minor: 8,
+          },
           date: '2024-11-03',
           description: [
             'Added secured space and login function.',
@@ -468,7 +392,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '3.7',
+          version: {
+            major: 3,
+            minor: 7,
+          },
           date: '2024-11-02',
           description: [
             'Fix bug: click button to open external links will open in new tab.',
@@ -476,7 +403,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '3.6',
+          version: {
+            major: 3,
+            minor: 6,
+          },
           date: '2024-11-01',
           description: [
             'Update software project personal website section with adding screen captures.',
@@ -485,7 +415,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '3.5',
+          version: {
+            major: 3,
+            minor: 5,
+          },
           date: '2024-11-01',
           description: [
             'Update software project personal website section layout.',
@@ -493,7 +426,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '3.4',
+          version: {
+            major: 3,
+            minor: 4,
+          },
           date: '2024-10-31',
           description: [
             'Renamed shared data service variables to be more descriptive.',
@@ -501,7 +437,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '3.3',
+          version: {
+            major: 3,
+            minor: 3,
+          },
           date: '2024-10-30',
           description: [
             'Update nav-bar to minimize the menu in small screen after clicking any link.',
@@ -509,7 +448,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '3.2',
+          version: {
+            major: 3,
+            minor: 2,
+          },
           date: '2024-10-30',
           description: [
             'Update footer to retrive last update version and datetime from log.',
@@ -520,7 +462,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '3.1',
+          version: {
+            major: 3,
+            minor: 1,
+          },
           date: '2024-10-29',
           description: [
             'Update website content (footer, nav-bar, and sofware projects).',
@@ -528,7 +473,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '3.0',
+          version: {
+            major: 3,
+            minor: 0,
+          },
           date: '2024-10-24',
           description: [
             'Rewrite website with Angular 18.',
@@ -542,7 +490,10 @@ export class SharedDataService {
           critical: true,
         },
         {
-          version: '2.2',
+          version: {
+            major: 2,
+            minor: 2,
+          },
           date: '2024-10-10',
           description: [
             'Move variables to shared data service file.',
@@ -552,7 +503,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '2.1',
+          version: {
+            major: 2,
+            minor: 1,
+          },
           date: '2024-10-3',
           description: [
             'Create shared data service file in Angular for sharing data between components.',
@@ -562,7 +516,10 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '2.0',
+          version: {
+            major: 2,
+            minor: 0,
+          },
           date: '2024-9-28',
           description: [
             'Rewrite website with Angular 18.',
@@ -572,13 +529,19 @@ export class SharedDataService {
           critical: true,
         },
         {
-          version: '1.5',
+          version: {
+            major: 1,
+            minor: 5,
+          },
           date: '2024-9-15',
           description: ['Website content updated.'],
           critical: false,
         },
         {
-          version: '1.4',
+          version: {
+            major: 1,
+            minor: 4,
+          },
           date: '2024-9-7',
           description: [
             'Website content updated.',
@@ -587,25 +550,37 @@ export class SharedDataService {
           critical: false,
         },
         {
-          version: '1.3',
+          version: {
+            major: 1,
+            minor: 3,
+          },
           date: '2024-9-2',
           description: ['Website content updated.'],
           critical: false,
         },
         {
-          version: '1.2',
+          version: {
+            major: 1,
+            minor: 2,
+          },
           date: '2024-8-27',
           description: ['Website content updated.'],
           critical: false,
         },
         {
-          version: '1.1',
+          version: {
+            major: 1,
+            minor: 1,
+          },
           date: '2024-8-26',
           description: ['Website content updated.', 'Website styles updated.'],
           critical: false,
         },
         {
-          version: '1.0',
+          version: {
+            major: 1,
+            minor: 0,
+          },
           date: '2024-8-20',
           description: [
             'Initial version.',
