@@ -1,3 +1,7 @@
+2024-10-11:
+Executed "npm install lottie-web ngx-lottie --save".
+Unused red loading gradient JSON:"https://lottie.host/d9e19b53-8286-48cc-b3a5-9e932f7f65f0/C3vZA2VuKr.json"
+
 2024-10-28:
 Home component with all animations backup:
 <div class="banner" [ngStyle]="{'background-image': 'url(' +  userImg.banner  + ')'}">

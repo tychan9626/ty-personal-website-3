@@ -1,5 +1,25 @@
 <div class="testBase">
+  @if (bIsLoading) {
+  <div class="lottie-base">
+    <div class="lottie-container">
+      <ng-lottie [options]="options"></ng-lottie>
+    </div>
+    <div class="loading-text">
+      <p>
+        Thank you for your patience.
+        <br>
+        The content is being loaded from the server.
+        <br>
+        This may take a few moments.
+        <br>
+        Waiting time: {{ iCountSecond }} seconds.
+      </p>
+    </div>
+  </div>
+
+  } @else {
   <div class="container">
     <p>{{testData[0].message}}</p>
   </div>
+  }
 </div>

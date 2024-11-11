@@ -79,7 +79,7 @@ export interface logDetails {
   version: version;
   date: string;
   description: string[];
-  critical: boolean;
+  critical?: boolean;
 }
 
 export interface technicalSkillsDetails {

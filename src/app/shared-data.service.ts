@@ -359,6 +359,17 @@ export class SharedDataService {
         {
           version: {
             major: 3,
+            minor: 11,
+          },
+          date: '2024-11-10',
+          description: [
+            'Create loading page animation, message for display when waiting for API content.',
+            'Update log interface to make critical optional.'
+          ],
+        },
+        {
+          version: {
+            major: 3,
             minor: 10,
           },
           date: '2024-11-10',
@@ -367,7 +378,6 @@ export class SharedDataService {
             'Move API test content to test page.',
             'Remove direct access of secret space.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -378,7 +388,6 @@ export class SharedDataService {
           description: [
             'Implement API call data for testing.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -389,7 +398,6 @@ export class SharedDataService {
           description: [
             'Added secured space and login function.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -400,7 +408,6 @@ export class SharedDataService {
           description: [
             'Fix bug: click button to open external links will open in new tab.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -412,7 +419,6 @@ export class SharedDataService {
             'Update software project personal website section with adding screen captures.',
             'Add view on Github buttons to each software projects.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -423,7 +429,6 @@ export class SharedDataService {
           description: [
             'Update software project personal website section layout.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -434,7 +439,6 @@ export class SharedDataService {
           description: [
             'Renamed shared data service variables to be more descriptive.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -445,7 +449,6 @@ export class SharedDataService {
           description: [
             'Update nav-bar to minimize the menu in small screen after clicking any link.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -459,7 +462,6 @@ export class SharedDataService {
             'Update home page banner large and banner small image.',
             'Add @media max width 992px for banner display setting changes.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -470,7 +472,6 @@ export class SharedDataService {
           description: [
             'Update website content (footer, nav-bar, and sofware projects).',
           ],
-          critical: false,
         },
         {
           version: {
@@ -500,7 +501,6 @@ export class SharedDataService {
             'Add components nav-bar, footer.',
             'Include website update log.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -513,7 +513,6 @@ export class SharedDataService {
             'Split components into separate files.',
             'Update website icon.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -535,7 +534,6 @@ export class SharedDataService {
           },
           date: '2024-9-15',
           description: ['Website content updated.'],
-          critical: false,
         },
         {
           version: {
@@ -547,7 +545,6 @@ export class SharedDataService {
             'Website content updated.',
             'Include diagrams for software projects.',
           ],
-          critical: false,
         },
         {
           version: {
@@ -556,7 +553,6 @@ export class SharedDataService {
           },
           date: '2024-9-2',
           description: ['Website content updated.'],
-          critical: false,
         },
         {
           version: {
@@ -565,7 +561,6 @@ export class SharedDataService {
           },
           date: '2024-8-27',
           description: ['Website content updated.'],
-          critical: false,
         },
         {
           version: {
@@ -574,7 +569,6 @@ export class SharedDataService {
           },
           date: '2024-8-26',
           description: ['Website content updated.', 'Website styles updated.'],
-          critical: false,
         },
         {
           version: {

@@ -8,3 +8,27 @@
   margin-top: -60px;
   background-color: #f1f7fd;
 }
+
+.lottie-base {
+  position: relative;
+  display: flex;
+  flex-direction: column; /* 改为垂直排列 */
+  justify-content: center; /* 水平居中 */
+  align-items: center;     /* 垂直居中 */
+  height: 100vh;           /* 占满视口高度 */
+  width: 100%;             /* 占满宽度 */
+  background: center center / cover no-repeat;
+  background-color: #ffffff;
+}
+
+.lottie-container {
+  width: 220px;
+  height: 220px;
+  margin-bottom: 10px; /* 添加底部间距，让动画与文字分开 */
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+}
