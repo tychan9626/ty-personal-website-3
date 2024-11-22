@@ -1,4 +1,4 @@
-import { log, testRenderApi, version } from './../user-data.model';
+import { log, tySectionLog, version } from './../user-data.model';
 import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from '../shared-data.service';
 import { navLink, UserData } from '../user-data.model';
@@ -19,26 +19,22 @@ export class FooterComponent implements OnInit {
 
   testData: any;
 
-
   constructor(private sharedDataService: SharedDataService) { }
 
   ngOnInit() {
     this.sharedDataService.userData$.subscribe((data: UserData) => {
       this.userDisplayName = data.userDisplayName;
       this.externalNavLink = data.externalNavLink;
-      this.logVersion = data.log.logDetails[0].version;
-      this.logDate = data.log.logDetails[0].date;
     });
-    this.sharedDataService.getRenderTestData().subscribe(
-      (response) => {
-        if (response && response.length > 0) {
-          this.testData = response;
-        }
+    this.sharedDataService.tySectionLogDataSource$.subscribe({
+      next: (data: tySectionLog) => {
+        this.logVersion = data.logs[0].version;
+        this.logDate = data.logs[0].date;
       },
-      (error) => {
-        console.error('Error fetching data:', error);
+      error: (error) => {
+        console.error('Error fetching logs:', error);
       }
-    );
+    })
   }
 
 

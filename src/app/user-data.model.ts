@@ -69,18 +69,6 @@ export interface education {
   otherCourses: string[];
 }
 
-export interface version {
-  major: number;
-  minor: number;
-  patch?: number;
-}
-
-export interface logDetails {
-  version: version;
-  date: string;
-  description: string[];
-  critical?: boolean;
-}
 
 export interface technicalSkillsDetails {
   name: string;
@@ -92,9 +80,28 @@ export interface technicalSkills {
   technicalSkillsDetails: technicalSkillsDetails[];
 }
 
+
+export interface version {
+  major: number;
+  minor: number;
+  patch?: number;
+}
+
 export interface log {
-  displayCode: string;
-  logDetails: logDetails[];
+  version: version;
+  date: string;
+  description: string[];
+  critical?: boolean;
+}
+
+export interface tySectionLog {
+  tyDisplayCode: string;
+  logs: log[];
+}
+
+export interface tyApiResponseSectionLog {
+  success: boolean;
+  data: tySectionLog;
 }
 
 export interface creditDetails {
@@ -130,11 +137,6 @@ export interface UserData {
 
   technicalSkills: technicalSkills;
 
-  log: log;
 
   credit: credit;
-}
-
-export interface testRenderApi {
-  message: string;
 }

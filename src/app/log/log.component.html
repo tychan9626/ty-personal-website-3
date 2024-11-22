@@ -1,6 +1,9 @@
+@if (tySectionLog.logs.length
+<= 0) { <app-loading-page />
+} @else {
 <div class="container">
   <h1 class="py-1 text-center">Website Log</h1>
-  @for (log of log.logDetails; track $index; let idx = $index) {
+  @for (log of tySectionLog.logs; track $index; let idx=$index) {
   <div class="log-card slideUpFadeInAnimation row border-bottom" [ngStyle]="{ 'animation-delay': idx * 0.1 + 's' }">
     <div class="col-md-2 col-12 mb-3 mb-md-0">
       @if (log.critical) {
@@ -24,9 +27,9 @@
     </div>
   </div>
   }
-
-
-  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-  <br>
-  <br>
 </div>
+}
+
+
+
+<!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->

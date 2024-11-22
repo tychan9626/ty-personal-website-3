@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { testRenderApi, UserData } from './user-data.model';
+import { tyApiResponseSectionLog, tySectionLog, UserData, version } from './user-data.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class SharedDataService {
-  private apiUrl = 'https://ty-personal-website-3-be.onrender.com/'; // Render API URL
+  private apiUrl = 'https://ty-personal-website-3-be-nextjs.vercel.app/api/';
   private userData: UserData = {
     userLegalFirstName: 'Tsz Yin',
     userLegalLastName: 'Chan',
@@ -353,238 +353,6 @@ export class SharedDataService {
         }
       ]
     },
-    log: {
-      displayCode: 'dp41',
-      logDetails: [
-        {
-          version: {
-            major: 3,
-            minor: 11,
-          },
-          date: '2024-11-10',
-          description: [
-            'Create loading page animation, message for display when waiting for API content.',
-            'Update log interface to make critical optional.'
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 10,
-          },
-          date: '2024-11-10',
-          description: [
-            'Split version code into structure instead of one string.',
-            'Move API test content to test page.',
-            'Remove direct access of secret space.',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 9,
-          },
-          date: '2024-11-04',
-          description: [
-            'Implement API call data for testing.',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 8,
-          },
-          date: '2024-11-03',
-          description: [
-            'Added secured space and login function.',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 7,
-          },
-          date: '2024-11-02',
-          description: [
-            'Fix bug: click button to open external links will open in new tab.',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 6,
-          },
-          date: '2024-11-01',
-          description: [
-            'Update software project personal website section with adding screen captures.',
-            'Add view on Github buttons to each software projects.',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 5,
-          },
-          date: '2024-11-01',
-          description: [
-            'Update software project personal website section layout.',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 4,
-          },
-          date: '2024-10-31',
-          description: [
-            'Renamed shared data service variables to be more descriptive.',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 3,
-          },
-          date: '2024-10-30',
-          description: [
-            'Update nav-bar to minimize the menu in small screen after clicking any link.',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 2,
-          },
-          date: '2024-10-30',
-          description: [
-            'Update footer to retrive last update version and datetime from log.',
-            'Update footer and log page time format to yyyy-MM-dd.',
-            'Update home page banner large and banner small image.',
-            'Add @media max width 992px for banner display setting changes.',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 1,
-          },
-          date: '2024-10-29',
-          description: [
-            'Update website content (footer, nav-bar, and sofware projects).',
-          ],
-        },
-        {
-          version: {
-            major: 3,
-            minor: 0,
-          },
-          date: '2024-10-24',
-          description: [
-            'Rewrite website with Angular 18.',
-            'Defined structured first before migrating content from old project.',
-            'Include website routing.',
-            'Include website update log accessable from nav-bar.',
-            'Restrict data can be accessed from shared data service file only.',
-            'Include observable in shared data service file.',
-            'Commit project codes to GitHub.',
-          ],
-          critical: true,
-        },
-        {
-          version: {
-            major: 2,
-            minor: 2,
-          },
-          date: '2024-10-10',
-          description: [
-            'Move variables to shared data service file.',
-            'Add components nav-bar, footer.',
-            'Include website update log.',
-          ],
-        },
-        {
-          version: {
-            major: 2,
-            minor: 1,
-          },
-          date: '2024-10-3',
-          description: [
-            'Create shared data service file in Angular for sharing data between components.',
-            'Split components into separate files.',
-            'Update website icon.',
-          ],
-        },
-        {
-          version: {
-            major: 2,
-            minor: 0,
-          },
-          date: '2024-9-28',
-          description: [
-            'Rewrite website with Angular 18.',
-            'Commit project codes to GitHub.',
-            'Build website with Angular CLI and deploy to Cloudflare.',
-          ],
-          critical: true,
-        },
-        {
-          version: {
-            major: 1,
-            minor: 5,
-          },
-          date: '2024-9-15',
-          description: ['Website content updated.'],
-        },
-        {
-          version: {
-            major: 1,
-            minor: 4,
-          },
-          date: '2024-9-7',
-          description: [
-            'Website content updated.',
-            'Include diagrams for software projects.',
-          ],
-        },
-        {
-          version: {
-            major: 1,
-            minor: 3,
-          },
-          date: '2024-9-2',
-          description: ['Website content updated.'],
-        },
-        {
-          version: {
-            major: 1,
-            minor: 2,
-          },
-          date: '2024-8-27',
-          description: ['Website content updated.'],
-        },
-        {
-          version: {
-            major: 1,
-            minor: 1,
-          },
-          date: '2024-8-26',
-          description: ['Website content updated.', 'Website styles updated.'],
-        },
-        {
-          version: {
-            major: 1,
-            minor: 0,
-          },
-          date: '2024-8-20',
-          description: [
-            'Initial version.',
-            'Website developed with Google Sites.',
-            'Domain purchased, and hosted on Cloudflare.',
-          ],
-          critical: true,
-        },
-      ]
-    },
     credit: {
       displayCode: 'dp51',
       creditDetails: [
@@ -618,15 +386,25 @@ export class SharedDataService {
   private userDataSource = new BehaviorSubject<UserData>(this.userData);
   userData$ = this.userDataSource.asObservable();
 
-  private testRenderData: testRenderApi = {
-    message: '',
-  }
-  private testRenderDataSource = new BehaviorSubject<testRenderApi>(this.testRenderData);
-  testRenderDataSource$ = this.testRenderDataSource.asObservable();
+  private tySectionLog!: tySectionLog;
+  private tySectionLogDataSource = new BehaviorSubject<tySectionLog>(this.tySectionLog);
+  tySectionLogDataSource$ = this.tySectionLogDataSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  getRenderTestData(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}test`);
+  connectTySectionLog(): void {
+    this.http.get<tyApiResponseSectionLog>(`${this.apiUrl}tySectionLog`).subscribe({
+      next: (response: tyApiResponseSectionLog) => {
+        if (response.success && response.data.tyDisplayCode !== '' && response.data.logs.length > 0) {
+          this.tySectionLog = response.data;
+          this.tySectionLogDataSource.next(this.tySectionLog);
+        } else {
+          console.log('No logs found or request failed');
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching logs:', error);
+      }
+    });
   }
 }
