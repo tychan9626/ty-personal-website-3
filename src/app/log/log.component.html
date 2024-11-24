@@ -1,34 +1,54 @@
-@if (tySectionLog.logs.length
-<= 0) { <app-loading-page />
-} @else {
 <div class="container">
-  <h1 class="py-1 text-center">Website Log</h1>
-  @for (log of tySectionLog.logs; track $index; let idx=$index) {
-  <div class="log-card slideUpFadeInAnimation row border-bottom" [ngStyle]="{ 'animation-delay': idx * 0.1 + 's' }">
-    <div class="col-md-2 col-12 mb-3 mb-md-0">
-      @if (log.critical) {
-      <h5>Version</h5>
-      <h5 class="log-critical">{{ log.version.major }}.{{ log.version.minor }}{{ log.version.patch !== undefined ? '.' +
-        log.version.patch : '' }}</h5>
-      } @else {
-      <h5>Version {{ log.version.major }}.{{ log.version.minor }}{{ log.version.patch !== undefined ? '.' +
-        log.version.patch : '' }}
-      </h5>
-      }
-      <span>{{ log.date | date: 'yyyy-MM-dd' }}</span>
+  <h1 class="py-1 text-center">{{ tySectionLog.page_log_title }}</h1>
+  <ul class="nav nav-tabs" id="logTabs" role="tablist">
+    @for (category of categories; track $index; let idx=$index) {
+    <li class="nav-item me-1" role="presentation" (click)="selectedCategory = category"
+      [class.active]="selectedCategory === category">
+      <button class="nav-link" [class.active]="idx === 0" [id]="'tab-' + category" data-bs-toggle="tab"
+        [attr.data-bs-target]="'#log-content-' + category" type="button" role="tab"
+        [attr.aria-controls]="'log-content-' + category" [attr.aria-selected]="idx === 0"
+        (click)="selectedCategory = category">{{ category }}</button>
+    </li>
+    }
+  </ul>
 
-    </div>
-    <div class="col-md-10 col-12">
-      <ul style="padding-right: 70px;">
-        @for (desc of log.description; track $index) {
-        <li class="card-text">{{ desc }}</li>
+  <div class="tab-content" id="logTabContent">
+    @for (category of categories; track $index; let idx=$index) {
+    <div class="tab-pane" [class.show]="idx === 0" [class.active]="idx === 0" [id]="'log-content-' + category"
+      role="tabpanel" [attr.aria-labelledby]="'tab-' + category">
+      <ul>
+        @for (log of logsByCategory[category]; track $index; let idx=$index) {
+        <div class="log-card slideUpFadeInAnimation row border-bottom"
+          [ngStyle]="{ 'animation-delay': idx * 0.1 + 's' }">
+          <div class="col-12 col-sm-3 col-md-2 mb-3 mb-md-0">
+            @if (log.critical) {
+            <h5>Version</h5>
+            <h5 class="log-critical">{{ log.version.major }}.{{ log.version.minor }}{{ log.version.patch !== undefined ?
+              '.' +
+              log.version.patch : '' }}</h5>
+            } @else {
+            <h5>Version {{ log.version.major }}.{{ log.version.minor }}{{ log.version.patch !== undefined ? '.' +
+              log.version.patch : '' }}
+            </h5>
+            }
+            <span>{{ log.date | date: 'yyyy-MM-dd' }}</span>
+
+          </div>
+          <div class="col-12 col-sm-9 col-md-10">
+            <ul>
+              @for (desc of log.description; track $index) {
+              <li class="card-text">{{ desc }}</li>
+              }
+            </ul>
+          </div>
+        </div>
         }
       </ul>
     </div>
+    }
   </div>
-  }
 </div>
-}
+
 
 
 

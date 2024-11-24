@@ -1,4 +1,11 @@
 .log-critical {
-    font-size: 5rem;
-    line-height: 0.8;
+    font-size: 4rem;
+    line-height: 0.7;
+}
+
+
+.log-card {
+    padding: 20px;
+    margin-left: -32px;
+    margin-right: 0px;
 }

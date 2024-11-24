@@ -88,6 +88,8 @@ export interface version {
 }
 
 export interface log {
+  _id: string;
+  category?: string;
   version: version;
   date: string;
   description: string[];
@@ -95,7 +97,8 @@ export interface log {
 }
 
 export interface tySectionLog {
-  tyDisplayCode: string;
+  page_log_title: string,
+  display_mode: string;
   logs: log[];
 }
 

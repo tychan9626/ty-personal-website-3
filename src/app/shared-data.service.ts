@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { tyApiResponseSectionLog, tySectionLog, UserData, version } from './user-data.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedDataService {
-  private apiUrl = 'https://ty-personal-website-3-be-nextjs.vercel.app/api/';
+  private apiUrl = environment.apiUrl;
   private userData: UserData = {
     userLegalFirstName: 'Tsz Yin',
     userLegalLastName: 'Chan',
@@ -393,11 +394,13 @@ export class SharedDataService {
   constructor(private http: HttpClient) { }
 
   connectTySectionLog(): void {
-    this.http.get<tyApiResponseSectionLog>(`${this.apiUrl}tySectionLog`).subscribe({
+    console.log(this.apiUrl);
+    this.http.get<tyApiResponseSectionLog>(`${this.apiUrl}/tySectionLog`).subscribe({
       next: (response: tyApiResponseSectionLog) => {
-        if (response.success && response.data.tyDisplayCode !== '' && response.data.logs.length > 0) {
+        if (response.success && response.data.page_log_title !== '' && response.data.display_mode !== '' && response.data.logs.length > 0) {
           this.tySectionLog = response.data;
           this.tySectionLogDataSource.next(this.tySectionLog);
+          //console.log(JSON.stringify(this.tySectionLog));
         } else {
           console.log('No logs found or request failed');
         }
