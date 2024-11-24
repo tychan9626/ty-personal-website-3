@@ -405,6 +405,7 @@ export class SharedDataService {
           console.log('No logs found or request failed');
         }
       },
+
       error: (error) => {
         console.error('Error fetching logs:', error);
       }

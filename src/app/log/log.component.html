@@ -21,14 +21,12 @@
         <div class="log-card slideUpFadeInAnimation row border-bottom"
           [ngStyle]="{ 'animation-delay': idx * 0.1 + 's' }">
           <div class="col-12 col-sm-3 col-md-2 mb-3 mb-md-0">
-            @if (log.critical) {
+            @if (log.is_critical) {
             <h5>Version</h5>
-            <h5 class="log-critical">{{ log.version.major }}.{{ log.version.minor }}{{ log.version.patch !== undefined ?
-              '.' +
-              log.version.patch : '' }}</h5>
+            <h5 class="log-critical">{{ log.version.major }}.{{ log.version.minor }}</h5>
             } @else {
-            <h5>Version {{ log.version.major }}.{{ log.version.minor }}{{ log.version.patch !== undefined ? '.' +
-              log.version.patch : '' }}
+            <h5>Version {{ log.version.major }}.{{ log.version.minor }}
+              <!-- {{ log.version.patch !== undefined ? '.' + log.version.patch : '' }} -->
             </h5>
             }
             <span>{{ log.date | date: 'yyyy-MM-dd' }}</span>

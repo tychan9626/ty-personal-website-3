@@ -89,11 +89,11 @@ export interface version {
 
 export interface log {
   _id: string;
-  category?: string;
-  version: version;
+  category: string;
   date: string;
+  version: version;
+  is_critical: boolean;
   description: string[];
-  critical?: boolean;
 }
 
 export interface tySectionLog {
