@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { tyApiResponseSectionLog, tySectionLog, UserData, version } from './user-data.model';
+import { Injectable, Version } from '@angular/core';
+import { log, tyApiResponseSectionLog, tySectionLog, UserData, version } from './user-data.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environment/environment';
@@ -391,24 +391,89 @@ export class SharedDataService {
   private tySectionLogDataSource = new BehaviorSubject<tySectionLog>(this.tySectionLog);
   tySectionLogDataSource$ = this.tySectionLogDataSource.asObservable();
 
+  private logsByCategorySubject = new BehaviorSubject<{ [key: string]: log[] }>({});
+  private latestVersionByCategorySubject = new BehaviorSubject<{ [key: string]: version }>({});
+  logsByCategory$ = this.logsByCategorySubject.asObservable();
+  latestVersionByCategory$ = this.latestVersionByCategorySubject.asObservable();
+
+  setLogsByCategory(logs: { [key: string]: log[] }) {
+    this.logsByCategorySubject.next(logs); // 發送新資料
+  }
+  setLatestVersionByCategory(versions: { [key: string]: version }) {
+    this.latestVersionByCategorySubject.next(versions); // 發送新資料
+  }
+
   constructor(private http: HttpClient) { }
 
   connectTySectionLog(): void {
-    console.log(this.apiUrl);
     this.http.get<tyApiResponseSectionLog>(`${this.apiUrl}/tySectionLog`).subscribe({
       next: (response: tyApiResponseSectionLog) => {
-        if (response.success && response.data.page_log_title !== '' && response.data.display_mode !== '' && response.data.logs.length > 0) {
+        if (
+          response.success &&
+          response.data.page_log_title !== '' &&
+          response.data.display_mode !== '' &&
+          response.data.logs.length > 0
+        ) {
           this.tySectionLog = response.data;
           this.tySectionLogDataSource.next(this.tySectionLog);
           //console.log(JSON.stringify(this.tySectionLog));
+          this.setTySectionLog();
         } else {
           console.log('No logs found or request failed');
         }
       },
-
       error: (error) => {
         console.error('Error fetching logs:', error);
-      }
+      },
     });
   }
+
+  setTySectionLog(): void {
+    const logsByCategory = this.tySectionLog.logs.reduce((acc, log) => {
+      const category = log.category || 'Frontend';  // 默認 'Frontend'
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(log);
+      return acc;
+    }, {} as { [key: string]: log[] });
+
+
+    const latestVersionByCategory = Object.keys(logsByCategory).reduce((acc, category) => {
+      const logs = logsByCategory[category];
+
+      if (logs && logs.length > 0) {
+        const latestLog = logs.reduce((latest, current) => {
+          const currentPatch = current.version.patch ?? 0;
+          const latestPatch = latest.version.patch ?? 0;
+
+          if (
+            current.version.major > latest.version.major ||
+            (current.version.major === latest.version.major &&
+              current.version.minor > latest.version.minor) ||
+            (current.version.major === latest.version.major &&
+              current.version.minor === latest.version.minor &&
+              currentPatch > latestPatch)
+          ) {
+            return current;
+          }
+          return latest;
+        });
+
+        acc[category] = {
+          major: latestLog.version.major,
+          minor: latestLog.version.minor,
+          patch: latestLog.version.patch ?? 0,
+        };
+      }
+      return acc;
+    }, {} as { [key: string]: version });
+    this.setLogsByCategory(logsByCategory);
+    this.setLatestVersionByCategory(latestVersionByCategory);
+  }
+
+  getLogPageTitle(): string {
+    return this.tySectionLog.page_log_title;
+  }
 }
+

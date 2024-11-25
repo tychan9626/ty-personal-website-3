@@ -144,3 +144,8 @@ button:hover {
     animation: fadeIn 0.5s ease-in-out;
     animation-fill-mode: forwards;
 }
+
+
+.cms {
+  font-family: Arial, sans-serif;
+}

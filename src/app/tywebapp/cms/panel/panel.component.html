@@ -1,0 +1,79 @@
+<div class="cms">
+  <div class="container">
+    <h2>TY web CMS platform</h2>
+    <hr>
+    <p class="fst-italic text-danger">Logged in as {{user.display_name}}. <button (click)="logout()">Logout</button></p>
+    <hr>
+    <h4>New log</h4>
+    <form (ngSubmit)="submitForm()" #logForm="ngForm">
+      <!-- Category -->
+      <label>Category:</label><br>
+      @for (cat of categories; track $index; let idx=$index) {
+      <input type="radio" name="category" [value]="cat" [(ngModel)]="log.category" (change)="onCategoryChange(cat)"
+        required /> {{ cat }} <br>
+      }
+      <!-- Other category -->
+      <input type="radio" name="category" [value]="'Other'" [(ngModel)]="log.category"
+        (change)="onCategoryChange('Other')" id="otherRadio" /> Other
+      <input type="text" [(ngModel)]="log.customCategory" name="customCategory" (keyup)="onOtherInputChange()" />
+
+      <br><br>
+
+      <!-- Date -->
+      <label>Date:</label><br>
+      <input type="date" [(ngModel)]="log.date" name="date" required />
+
+      <br><br>
+
+      <!-- Version -->
+      <label>Version:</label><br>
+      <input type="number" [(ngModel)]="log.version.major" name="major" size="2" required />&nbsp;.&nbsp;
+      <input type="number" [(ngModel)]="log.version.minor" name="minor" size="2" required />&nbsp;.&nbsp;
+      <input type="number" [(ngModel)]="log.version.patch" name="patch" size="2" />
+
+      <br><br>
+
+      <!-- Critical -->
+      <label>
+        <input type="checkbox" [(ngModel)]="log.is_critical" name="isCritical" /> Critical
+      </label><br><br>
+
+      <!-- Description -->
+      <label>Description:</label>
+      <br>
+      <textarea [(ngModel)]="log.description" name="description" placeholder="Enter log description" rows="5"
+        required></textarea><br><br>
+
+      <button type="submit" [disabled]="!logForm.form.valid">Submit</button>
+    </form>
+
+
+
+    <!-- <form (ngSubmit)="pushNewLog()">
+      <label for="category">Category:</label>
+      <br>
+      <label for="html">Frontend</label><br>
+      <input type="radio" id="Frontend" name="category" value="Frontend">
+      <label for="html">Database</label><br>
+      <input type="radio" id="Database" name="category" value="Database">
+      <label for="css">Backend</label><br>
+      <input type="radio" id="Backend" name="category" value="Backend">
+      <br>
+      <label for="date">Date:</label>
+      <input type="date" id="birthday" name="birthday"><br>
+      <br>
+      <label for="version">Version:</label>
+      <input type="number" id="version_major" name="version">
+      <input type="number" id="version_minor" name="version">
+      <input type="number" id="version_patch" name="version">
+      <input type="checkbox" id="is_critical" name="is_critical" value="is_critical">
+      <label for="is_critical">Critical</label><br>
+      <label for="description">Description:</label><br>
+      <input type="text" id="description" name="description" value="description"><br>
+      <br><br>
+      <button type="submit">Login</button>
+      &nbsp;
+      <button type="reset">Clear</button>
+    </form> -->
+  </div>
+</div>

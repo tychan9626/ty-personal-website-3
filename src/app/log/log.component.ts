@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { SharedDataService } from '../shared-data.service';
-import { log, tySectionLog } from '../user-data.model';
+import { log } from '../user-data.model';
 import { DatePipe, NgStyle } from '@angular/common';
-import { LoadingPageComponent } from "../shared-resources/loading-page/loading-page.component";
 
 @Component({
   selector: 'app-log',
@@ -12,8 +11,7 @@ import { LoadingPageComponent } from "../shared-resources/loading-page/loading-p
   styleUrl: './log.component.css'
 })
 export class LogComponent {
-  tySectionLog!: tySectionLog;
-
+  logPageTitle = '';
   logsByCategory: { [key: string]: log[] } = {};
   categories: string[] = [];
   selectedCategory = 'Frontend';
@@ -22,25 +20,21 @@ export class LogComponent {
 
   ngOnInit() {
     this.sharedDataService.tySectionLogDataSource$.subscribe({
-      next: (data: tySectionLog) => {
-        this.tySectionLog = data;
-        this.logsByCategory = data.logs.reduce((acc, log) => {
-          const category = log.category || 'Frontend';
-          if (!acc[category]) {
-            acc[category] = [];
-          }
-          acc[category].push(log);
-          return acc;
-        }, {} as { [key: string]: log[] });
-
-        console.log(JSON.stringify(this.logsByCategory));
-
-        this.categories = Object.keys(this.logsByCategory);
+      next: (data) => {
+        if (data) {
+          this.logPageTitle = this.sharedDataService.getLogPageTitle();
+        } else {
+          console.log('No data available in sharedDataService');
+        }
       },
       error: (error) => {
-        console.error('Error fetching logs:', error);
-      }
-    })
-  }
+        console.error('Error fetching log data:', error);
+      },
+    });
 
+    this.sharedDataService.logsByCategory$.subscribe(logs => {
+      this.logsByCategory = logs;  // 當資料更新時，更新本地屬性
+      this.categories = Object.keys(logs);  // 更新分類
+    });
+  }
 }

@@ -107,6 +107,17 @@ export interface tyApiResponseSectionLog {
   data: tySectionLog;
 }
 
+export interface user {
+  id: string;
+  display_name: string;
+}
+
+export interface tyApiResponseUserData {
+  success: boolean;
+  data: user;
+  message: string;
+}
+
 export interface creditDetails {
   title: string;
   info: string;

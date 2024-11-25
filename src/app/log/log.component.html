@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="py-1 text-center">{{ tySectionLog.page_log_title }}</h1>
+  <h1 class="py-1 text-center">{{ logPageTitle }}</h1>
   <ul class="nav nav-tabs" id="logTabs" role="tablist">
     @for (category of categories; track $index; let idx=$index) {
     <li class="nav-item me-1" role="presentation" (click)="selectedCategory = category"
