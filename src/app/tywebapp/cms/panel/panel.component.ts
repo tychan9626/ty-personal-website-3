@@ -42,6 +42,8 @@ export class PanelComponent {
   selectedCategory = 'Frontend';
   private apiUrl = environment.apiUrl;
 
+  descriptionText = '';
+
   constructor(private router: Router, private http: HttpClient, private sharedDataService: SharedDataService) { }
 
   ngOnInit() {
@@ -101,10 +103,15 @@ export class PanelComponent {
   }
 
   submitForm(): void {
+    const descriptionArray = this.descriptionText
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line !== '');
+
     const payload = {
       ...this.log,
       category: this.log.category === 'Other' ? this.log.customCategory : this.log.category,
-      description: [this.log.description],
+      description: descriptionArray,
     };
 
     this.http.post(`${this.apiUrl}/tySectionLog`, payload).subscribe({
