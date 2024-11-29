@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>TY web app</h2>
+  <hr>
+  <p class="fst-italic text-danger">Logged in as {{user.display_name}}. &nbsp;<button
+      class="tybtn btn btn-danger rounded-pill" (click)="logout()">Logout</button></p>
+  <hr>
+  <br>
+  @for (link of tyWebAppLinks; track $index) {
+  <button class="tybtn btn btn-success text-white btn-lg" [routerLink]="[link.url]">
+    {{ link.displayName }}
+  </button>
+  &nbsp;&nbsp;
+  }
+</div>

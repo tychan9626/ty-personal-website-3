@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../../../environment/environment';
+import { environment } from '../../../environment/environment';
 import { FormsModule } from '@angular/forms';
-import { tyApiResponseUserData } from '../../../user-data.model';
+import { tyApiResponseUserData } from '../../user-data.model';
 
 
 @Component({
@@ -17,25 +17,25 @@ export class TyloginComponent {
   private apiUrl = environment.apiUrl;
   username: string = '';
   password: string = '';
-  errorMessage: string = '';
+  errorMessage: string = ' ';
 
   constructor(private router: Router, private http: HttpClient) { }
 
   login() {
-    this.errorMessage = '';
+    this.errorMessage = ' ';
     const payload = { account_name: this.username, password: this.password };
 
     this.http.post<tyApiResponseUserData>(`${this.apiUrl}/account/login/verify-password`, payload).subscribe({
       next: (response: tyApiResponseUserData) => {
         if (response.success) {
           localStorage.setItem('user', JSON.stringify(response.data));
-          this.router.navigate(['cms/panel']);
+          this.router.navigate(['tywebapp/menu']);
         } else {
           this.errorMessage = response.message;
         }
       },
       error: (error) => {
-        this.errorMessage = 'Error during login: ' + error.message;
+        this.errorMessage = "Failed to login, either username or password is incorrect.";
       }
     });
   }
@@ -43,6 +43,6 @@ export class TyloginComponent {
   clear() {
     this.username = '';
     this.password = '';
-    this.errorMessage = '';
+    this.errorMessage = ' ';
   }
 }

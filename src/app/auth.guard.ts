@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  testing: boolean = false;
-
+  testing = false;
   constructor(private router: Router) { }
 
   canActivate(): boolean {
@@ -16,7 +15,7 @@ export class AuthGuard implements CanActivate {
     if (user || this.testing) {
       return true;
     } else {
-      this.router.navigate(['cms']);
+      this.router.navigate(['tylogin']);
       return false;
     }
   }

@@ -6,8 +6,10 @@ import { SthSyncDbComponent } from './feature/sth-sync-db/sth-sync-db.component'
 import { LoginComponent } from './secret-space/login/login.component';
 import { TestComponent } from './secret-space/test/test.component';
 import { AuthGuard } from './auth.guard';
-import { TyloginComponent } from './tywebapp/cms/tylogin/tylogin.component';
+import { TyloginComponent } from './tywebapp/tylogin/tylogin.component';
 import { PanelComponent } from './tywebapp/cms/panel/panel.component';
+import { NewBillComponent } from './tywebapp/bill/new-bill/new-bill.component';
+import { TyMenuComponent } from './tywebapp/menu/menu.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +18,9 @@ export const routes: Routes = [
   { path: 'feature/sth-sync-db', component: SthSyncDbComponent },
   { path: 'llIIlIlIllIIIlIllIlIl/login', component: LoginComponent },
   { path: 'ctytest', component: TestComponent },
-  { path: 'cms', component: TyloginComponent },
-  { path: 'cms/panel', component: PanelComponent, canActivate: [AuthGuard] },
+  { path: 'tylogin', component: TyloginComponent },
+  { path: 'tywebapp/menu', component: TyMenuComponent, canActivate: [AuthGuard] },
+  { path: 'tywebapp/cms/panel', component: PanelComponent, canActivate: [AuthGuard] },
+  { path: 'tywebapp/bill/new-bill', component: NewBillComponent, canActivate: [AuthGuard] },
+
 ];

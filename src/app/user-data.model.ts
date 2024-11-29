@@ -88,7 +88,6 @@ export interface version {
 }
 
 export interface log {
-  _id: string;
   category: string;
   date: string;
   version: version;

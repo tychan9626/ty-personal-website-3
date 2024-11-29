@@ -1,22 +1,10 @@
 import { Component } from '@angular/core';
-import { log, user, version } from '../../../user-data.model';
+import { version } from '../../../user-data.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SharedDataService } from '../../../shared-data.service';
-import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environment/environment';
-
-
-interface Log {
-  _id?: string; // Optional, MongoDB generates it
-  category: string;
-  customCategory?: string; // For "Other" category
-  date: string;
-  version: version;
-  is_critical: boolean;
-  description: string[];
-}
 
 @Component({
   selector: 'app-panel',
@@ -27,30 +15,25 @@ interface Log {
 })
 
 export class PanelComponent {
-  user!: user;
-  categories = [''];
-  log: Log = {
-    _id: '',
-    category: '',
-    date: this.getTodayDate(),
-    version: { major: 0, minor: 0, patch: 0 },
-    is_critical: false,
-    description: [],
-  };
+  category: string = 'Frontend';
+  customCategory: string = '';
+  date: string = this.getTodayDate();
+  version: version = { major: 1, minor: 0, patch: 0 };
+  is_critical: boolean = false;
+  descriptionText = '';
+
+  allDisplaycategories = [''];
   latestVersionByCategorySubject: { [key: string]: version } = {};
-  updatedVersion: version | null = null;
-  selectedCategory = 'Frontend';
+
   private apiUrl = environment.apiUrl;
 
-  descriptionText = '';
+  responseMessage: string = '';
 
   constructor(private router: Router, private http: HttpClient, private sharedDataService: SharedDataService) { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user') || '{}');
-
     this.sharedDataService.logsByCategory$.subscribe(logs => {
-      this.categories = Object.keys(logs);  // 更新分類
+      this.allDisplaycategories = Object.keys(logs);  // 更新分類
     });
     this.sharedDataService.latestVersionByCategory$.subscribe(versions => {
       this.latestVersionByCategorySubject = versions;
@@ -58,39 +41,36 @@ export class PanelComponent {
     });
   }
 
-  logout() {
-    localStorage.clear();
-    console.log('Local Storage 已全局清除');
-    this.router.navigate(['cms/']);
+  goBack(): void {
+    this.router.navigate(['tywebapp/menu']);
   }
 
   onCategoryChange(category: string): void {
     if (category !== 'Other') {
-      this.log.customCategory = '';
-      this.selectedCategory = category;
-      this.updateVersionForCategory();
+      this.customCategory = '';
+      this.category = category;
     } else {
-      this.log.version = { major: 0, minor: 0, patch: 0 }; // Reset version
+      this.version = { major: 1, minor: 0, patch: 0 };
     }
+    this.updateVersionForCategory();
   }
 
   updateVersionForCategory(): void {
-    const currentVersion = this.latestVersionByCategorySubject[this.selectedCategory];
+    const currentVersion = this.latestVersionByCategorySubject[this.category];
     if (currentVersion) {
-      // 若有版本數據，更新並加上 minor+1
-      this.updatedVersion = {
-        ...currentVersion,
+      this.version = {
+        major: currentVersion.major,
         minor: currentVersion.minor + 1,
+        patch: 0
       };
     } else {
-      // 若無版本數據，初始化一個默認版本
-      this.updatedVersion = { major: 1, minor: 0, patch: 0 };
+      this.version = { major: 1, minor: 0, patch: 0 };
     }
   }
 
   onOtherInputChange(): void {
-    if (this.log.customCategory && this.log.customCategory.trim() !== '') {
-      this.log.category = 'Other';
+    if (this.customCategory && this.customCategory.trim() !== '') {
+      this.customCategory = 'Other';
     }
   }
 
@@ -103,23 +83,27 @@ export class PanelComponent {
   }
 
   submitForm(): void {
+    this.responseMessage = '';
     const descriptionArray = this.descriptionText
       .split('\n')
       .map(line => line.trim())
       .filter(line => line !== '');
 
     const payload = {
-      ...this.log,
-      category: this.log.category === 'Other' ? this.log.customCategory : this.log.category,
+      category: this.category === 'Other' ? this.customCategory : this.category,
+      date: this.date,
+      version: this.version,
+      is_critical: this.is_critical,
       description: descriptionArray,
     };
 
     this.http.post(`${this.apiUrl}/tySectionLog`, payload).subscribe({
       next: (response) => {
-        console.log('Log created successfully:', response);
+        this.responseMessage = 'Log created successfully!';
+        this.router.navigate(['tywebapp/cms/panel']);
       },
       error: (error) => {
-        console.error('Error creating log:', error);
+        this.responseMessage = 'Error creating log.';
       },
     });
   }

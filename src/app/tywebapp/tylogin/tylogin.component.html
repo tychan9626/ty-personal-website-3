@@ -1,0 +1,19 @@
+<div class="container">
+  <h2>Login</h2>
+  <hr>
+  <form (ngSubmit)="login()">
+    <label for="username">Username:</label>
+    <br>
+    <input type="text" id="username" [(ngModel)]="username" name="username" required />
+    <br>
+    <label for="password">Password:</label>
+    <br>
+    <input type="password" id="password" [(ngModel)]="password" name="password" required />
+    <br><br>
+    <button class="tybtn btn btn-primary rounded-pill" type="submit">Login</button>
+    &nbsp;
+    <button class="tybtn btn btn-primary rounded-pill" type="reset" (click)="clear()">Clear</button>
+  </form>
+  <br>
+  <div class="text-danger">{{ errorMessage }}</div>
+</div>
