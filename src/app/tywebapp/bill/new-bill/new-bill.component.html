@@ -1,76 +1,225 @@
 <div class="container">
   <h2>Add Bill</h2>
   <hr>
-  <button class="tybtn btn btn-primary rounded-pill" (click)="goBack()">← Back to menu</button>
+  <button class="tybtn btn btn-primary rounded-pill" (click)="goBack()">← Back to menu</button> &nbsp;
+  <button class="tybtn btn btn-primary rounded-pill" (click)="addNewItem()">Add Bill Item</button> &nbsp;
+  <button class="tybtn btn btn-primary rounded-pill" (click)="showPreview()">Next →</button> &nbsp;
+  <div class="text-danger">{{ responseMessage }}</div>
   <hr>
-  <form (ngSubmit)="submitBill()" #billForm="ngForm">
-    <div class="form-group">
-      <label>User ID:</label>
-      <input type="text" class="form-control" [(ngModel)]="bill.user_id" name="user_id" required />
+  <div class="row">
+    <div class="col-12 col-sm-3">
+      <label>User</label>
+      <input type="text" class="form-control" [(ngModel)]="billUser.display_name" name="bill_user_id" disabled="true" />
     </div>
-    <div class="form-group">
-      <label>Currency ID:</label>
-      <input type="text" class="form-control" [(ngModel)]="bill.bill_currency_id" name="bill_currency_id" required />
+    <div class="col-12 col-sm-6">
+      <label>Title</label>
+      <input type="text" class="form-control" [(ngModel)]="billTitle" name="title" />
     </div>
-    <div class="form-group">
-      <label>Subtotal:</label>
-      <input type="number" class="form-control" [(ngModel)]="bill.bill_subtotal" name="bill_subtotal" required />
+    <div class="col-12 col-sm-3">
+      <label for="billDateTime">Bill Date and Time:</label>
+      <input type="datetime-local" id="billDateTime" [(ngModel)]="billDateTime" class="form-control">
     </div>
-    <div class="form-group">
-      <label>Tax:</label>
-      <input type="number" class="form-control" [(ngModel)]="bill.bill_tax" name="bill_tax" required />
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-4">
+      <label>Bill currency</label>
+      <br>
+      @for (currency of currencies; track $index; let idx=$index) {
+      <button class="tyNewBillBottomMargin tybtn btn"
+        [ngClass]="{'btn-primary': billCurrency.tb_tyapp_crny_id === currency.tb_tyapp_crny_id, 'btn-light': billCurrency.tb_tyapp_crny_id !== currency.tb_tyapp_crny_id}"
+        (click)="selectCurrency(currency)">{{ currency.code }}</button>
+      &nbsp;
+      }
     </div>
-    <div class="form-group">
-      <label>Tip:</label>
-      <input type="number" class="form-control" [(ngModel)]="bill.bill_tip" name="bill_tip" />
+    <div class="col-12 col-sm-4 col-md-3 col-lg-4">
+      <label for="bill_subtotal">Subtotal</label>
+      <input type="number" class="form-control" [(ngModel)]="billSubtotal" name="bill_subtotal" />
     </div>
-    <div class="form-group">
-      <label>Wallet ID:</label>
-      <input type="text" class="form-control" [(ngModel)]="bill.paid_wallet_id" name="paid_wallet_id" />
+    <div class="col-6 col-sm-4 col-md-2 col-lg-2">
+      <label for="bill_tax">Tax</label>
+      <div class="input-group">
+        <input type="number" class="form-control" [(ngModel)]="billTax" name="bill_tax" />
+        <button class="tyNewBillBottomMargin tybtn btn btn-outline-secondary" type="button"
+          (click)="calculateBillTax(13)">
+          13
+        </button>
+        <button class="tyNewBillBottomMargin tybtn btn btn-outline-secondary" type="button"
+          (click)="calculateBillTax(5)">
+          5
+        </button>
+      </div>
+
     </div>
-    <div class="form-group">
+    <div class="col-6 col-sm-4 col-md-2 col-lg-2">
+      <label for="bill_tip">Tips</label>
+      <input type="number" class="form-control" [(ngModel)]="billTips" name="bill_tip" />
+    </div>
+  </div>
+  <div class="row">
+    <!-- <button (click)="testBillPayerWallet('testButton')"> Test</button> -->
+    <div class="col-12 col-md-3">
+      <label for="billPayerSelect">Bill Payer</label>
+      <select id="billPayerSelect" class="form-select" [value]="billPayer?.id || ''"
+        (change)="onBillPayerSelect($event)">
+        <option value="" disabled selected>Select a user</option>
+        <option *ngFor="let user of users" [value]="user.id">
+          {{ user.display_name }}
+        </option>
+      </select>
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="walletSelect">Wallet</label>
+      <select id="walletSelect" class="form-select" [value]="paidWallet?.tb_tyapp_wlt_id || ''"
+        (change)="onWalletSelect($event)">
+        <option value="" disabled>Select a wallet</option>
+        <option *ngFor="let wallet of filteredPaidWallets" [value]="wallet.tb_tyapp_wlt_id">
+          {{ wallet.display_name }}
+        </option>
+      </select>
+    </div>
+    <div class="col-12 col-md-3">
       <label>Paid Amount:</label>
-      <input type="number" class="form-control" [(ngModel)]="bill.paid_amount" name="paid_amount" required />
+      <input type="number" class="form-control" [(ngModel)]="billPaidAmount" name="paid_amount" required />
     </div>
-    <div class="form-group">
-      <label>Title:</label>
-      <input type="text" class="form-control" [(ngModel)]="bill.title" name="title" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Submit Bill</button>
-  </form>
+  </div>
 
   <hr />
 
-  <h2>Add Bill Item</h2>
-  <form (ngSubmit)="submitBillItem()" #billItemForm="ngForm">
-    <div class="form-group">
-      <label>Bill ID:</label>
-      <input type="text" class="form-control" [(ngModel)]="billItem.bill_id" name="bill_id" required />
+  <div class="row">
+    @for (item of billItems; track item; let idx = $index) {
+    <div class="col-12 col-lg-6 col-xl-4">
+      <div class="card my-2">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <input id="on_sale_{{idx}}" class="form-check-input" type="checkbox" [(ngModel)]="item.on_sale">
+              <label class="form-check-label" for="flexCheckDefault">
+                &nbsp;On Sale
+              </label>
+            </div>
+
+            <div class="col-12">
+              <input id="name_en_{{idx}}" type="text" class="form-control" [placeholder]="'Name (English)'"
+                [(ngModel)]="item.name_en" required>
+            </div>
+
+            <div class="col-12">
+              <input id="name_zh_{{idx}}" type="text" class="form-control" [placeholder]="'Name (Chinese)'"
+                [(ngModel)]="item.name_zh">
+            </div>
+
+            <div class="col-12">
+              <div class="input-group">
+                <input id="amount_{{idx}}" type="number" class="form-control" [placeholder]="'Amount'"
+                  [(ngModel)]="item.amount" [value]="item.amount || ''">
+
+                <select id="unitSelect_{{idx}}" class="form-select tyNewBillBottomMargin"
+                  [value]="item.unit?.tb_tyapp_unt_id || ''" (change)="onUnitSelect($event, idx)">
+                  <option value="" disabled selected>Unit</option>
+                  @for (unit of units; track unit; let unitIdx = $index) {
+                  <option [value]="unit.tb_tyapp_unt_id">
+                    {{ unit.code }}
+                  </option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="input-group">
+                <input id="price_{{ idx }}" type="number" class="form-control" [placeholder]="'Price'"
+                  [(ngModel)]="item.price" [value]="item.price || ''" />
+                <input id="tax_{{ idx }}" type="number" class="form-control" [placeholder]="'Tax'"
+                  [(ngModel)]="item.tax" [value]="item.tax || ''" />
+                <button class="tyNewBillBottomMargin tybtn btn btn-outline-secondary" type="button"
+                  (click)="calculateBillItemTax(idx, 13)">
+                  13
+                </button>
+                <button class="tyNewBillBottomMargin tybtn btn btn-outline-secondary" type="button"
+                  (click)="calculateBillItemTax(idx, 5)">
+                  5
+                </button>
+              </div>
+            </div>
+            <div class="col-12">
+              <textarea id="description_{{idx}}" class="form-control tyNewBillBottomMargin"
+                [placeholder]="'Description'" [(ngModel)]="item.description"></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-danger mt-2" (click)="removeItem(idx)">Delete Row</button>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label>Name (EN):</label>
-      <input type="text" class="form-control" [(ngModel)]="billItem.name_en" name="name_en" required />
+    }
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="previewModalLabel">Preview Your Bill</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Bill Information -->
+          <div class="mb-3">
+            <h6>Bill Details</h6>
+            <div><strong>User:</strong> {{ billUser.display_name }}</div>
+            <div><strong>Title:</strong> {{ billTitle || 'N/A' }}</div>
+            <div><strong>Date and Time:</strong> {{ billDateTime | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+            <div><strong>Currency:</strong> {{ billCurrency.code }}</div>
+            <div><strong>Subtotal:</strong> {{ billSubtotal | number:'1.2-2' }}</div>
+            <div><strong>Tax:</strong> {{ billTax | number:'1.2-2' }}</div>
+            <div><strong>Tips:</strong> {{ billTips | number:'1.2-2' }}</div>
+            <div><strong>Payer:</strong> {{ billPayer?.display_name || 'N/A' }}</div>
+            <div><strong>Paid Wallet:</strong> {{ paidWallet?.display_name || 'N/A' }}</div>
+            <div><strong>Paid Amount:</strong> {{ billPaidAmount || 'N/A' }}</div>
+          </div>
+
+          <!-- Bill Items -->
+          <div class="mb-3">
+            <h6>Bill Items</h6>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name (EN)</th>
+                  <th>Name (ZH)</th>
+                  <th>Amount</th>
+                  <th>Unit</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Tax</th>
+                  <th>On Sale</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of billItems; index as i">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.name_en || 'N/A' }}</td>
+                  <td>{{ item.name_zh || 'N/A' }}</td>
+                  <td>{{ item.amount || 'N/A' }}</td>
+                  <td>{{ item.unit?.code|| 'N/A' }}</td>
+                  <td>{{ item.description || 'N/A' }}</td>
+                  <td>{{ item.price !== null && item.price !== undefined ? (item.price | number:'1.2-2') : 'N/A' }}</td>
+                  <td>{{ item.tax !== null && item.tax !== undefined ? (item.tax | number:'1.2-2') : 'N/A' }}</td>
+                  <td>{{ item.on_sale ? 'Yes' : 'No' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="submitData()">Confirm and Submit</button>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label>Name (ZH):</label>
-      <input type="text" class="form-control" [(ngModel)]="billItem.name_zh" name="name_zh" />
-    </div>
-    <div class="form-group">
-      <label>Amount:</label>
-      <input type="number" class="form-control" [(ngModel)]="billItem.amount" name="amount" />
-    </div>
-    <div class="form-group">
-      <label>Unit:</label>
-      <input type="text" class="form-control" [(ngModel)]="billItem.unit" name="unit" />
-    </div>
-    <div class="form-group">
-      <label>Description:</label>
-      <input type="text" class="form-control" [(ngModel)]="billItem.description" name="description" />
-    </div>
-    <div class="form-group">
-      <label>Tax:</label>
-      <input type="number" class="form-control" [(ngModel)]="billItem.tax" name="tax" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Submit Bill Item</button>
-  </form>
+  </div>
+
+
+
 </div>

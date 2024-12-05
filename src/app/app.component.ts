@@ -17,13 +17,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private sharedDataService: SharedDataService) { }
   ngOnInit(): void {
-    window.addEventListener('beforeunload', this.clearLocalStorage);
+    if (!this.sharedDataService.getTestingStatus()) {
+      window.removeEventListener('beforeunload', this.clearLocalStorage);
+    }
     this.sharedDataService.connectTySectionLog();
+    this.sharedDataService.getNewBillInitData()
   }
 
   ngOnDestroy(): void {
-    // 確保事件監聽器被清理
-    window.removeEventListener('beforeunload', this.clearLocalStorage);
+    if (!this.sharedDataService.getTestingStatus()) {
+      window.removeEventListener('beforeunload', this.clearLocalStorage);
+    }
   }
 
   clearLocalStorage(): void {

@@ -1,5 +1,5 @@
 import { Injectable, Version } from '@angular/core';
-import { log, tyApiResponseSectionLog, tySectionLog, UserData, version } from './user-data.model';
+import { log, tyApiResponseGetNewBillInitData, tyApiResponseSectionLog, tyNewBillInitData, tySectionLog, UserData, version } from './user-data.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environment/environment';
@@ -8,6 +8,7 @@ import { environment } from '../environment/environment';
   providedIn: 'root',
 })
 export class SharedDataService {
+  private isTesting = true;
   private apiUrl = environment.apiUrl;
   private userData: UserData = {
     userLegalFirstName: 'Tsz Yin',
@@ -474,6 +475,32 @@ export class SharedDataService {
 
   getLogPageTitle(): string {
     return this.tySectionLog.page_log_title;
+  }
+
+
+  private tyNewBillInitData!: tyNewBillInitData;
+  private tyNewBillInitDataSource = new BehaviorSubject<tyNewBillInitData>(this.tyNewBillInitData);
+  tyNewBillInitDataSource$ = this.tyNewBillInitDataSource.asObservable();
+
+  getNewBillInitData(): void {
+    this.http.get<tyApiResponseGetNewBillInitData>(`${this.apiUrl}/tywebapp/bill/get-new-bill-init-value`).subscribe({
+      next: (response: tyApiResponseGetNewBillInitData) => {
+        if (response.success) {
+          this.tyNewBillInitData = response.data;
+          this.tyNewBillInitDataSource.next(this.tyNewBillInitData);
+          //console.log(JSON.stringify(this.tyNewBillInitData));
+        } else {
+          console.log('No logs found or request failed');
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching logs:', error);
+      },
+    });
+  }
+
+  getTestingStatus(): boolean {
+    return this.isTesting;
   }
 }
 

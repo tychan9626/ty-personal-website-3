@@ -106,6 +106,34 @@ export interface tyApiResponseSectionLog {
   data: tySectionLog;
 }
 
+export interface currency {
+  tb_tyapp_crny_id: string;
+  code: string;
+}
+
+export interface wallet {
+  tb_tyapp_wlt_id: string;
+  user_id: string;
+  display_name: string;
+}
+
+export interface unit {
+  tb_tyapp_unt_id: string;
+  code: string;
+}
+
+export interface tyNewBillInitData {
+  users: user[];
+  currencies: currency[];
+  wallets: wallet[];
+  units: unit[];
+}
+
+export interface tyApiResponseGetNewBillInitData {
+  success: boolean;
+  data: tyNewBillInitData;
+}
+
 export interface user {
   id: string;
   display_name: string;

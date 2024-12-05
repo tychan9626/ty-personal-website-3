@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
+import { SharedDataService } from './shared-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  testing = false;
-  constructor(private router: Router) { }
+
+  constructor(private router: Router, private sharedDataService: SharedDataService) { }
 
   canActivate(): boolean {
-    // 檢查 localStorage 中是否有用戶資料，沒有則跳轉到登入頁面
     const user = localStorage.getItem('user');
-    if (user || this.testing) {
+    if (this.sharedDataService.getTestingStatus()) {
       return true;
     } else {
-      this.router.navigate(['tylogin']);
-      return false;
+      if (user) {
+        return true;
+      } else {
+        this.router.navigate(['tylogin']);
+        return false;
+      }
     }
+
   }
 }

@@ -13,6 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),  // 添加 HttpClient 支持
     provideLottieOptions({ player: () => player }),
-    provideCacheableAnimationLoader(),
+    provideCacheableAnimationLoader(), provideAnimationsAsync('noop'), provideAnimationsAsync(),
   ],
 };

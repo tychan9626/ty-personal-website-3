@@ -145,4 +145,6 @@ button:hover {
     animation-fill-mode: forwards;
 }
 
-
+.tyspecial-arial {
+    font-family: 'Arial', sans-serif;
+}
