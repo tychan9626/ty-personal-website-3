@@ -1,15 +1,5 @@
-.testBase {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: center center / cover no-repeat;
-  display: flex;
-  align-items: center;
-  margin-top: -60px;
-  background-color: #f1f7fd;
-}
 
-.lottie-base {
+.loading {
   position: relative;
   display: flex;
   flex-direction: column; /* 改为垂直排列 */
@@ -19,4 +9,21 @@
   width: 100%;             /* 占满宽度 */
   background: center center / cover no-repeat;
   background-color: #ffffff;
+  margin-top: -60px;
+}
+
+.lottie-container {
+  width: 180px;
+  height: 180px;
+  margin-bottom: 10px; /* 添加底部间距，让动画与文字分开 */
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+h1 {
+  margin-bottom: 20px;
 }

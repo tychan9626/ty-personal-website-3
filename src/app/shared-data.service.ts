@@ -8,7 +8,7 @@ import { environment } from '../environment/environment';
   providedIn: 'root',
 })
 export class SharedDataService {
-  private isTesting = true;
+  private isTesting = false;
   private apiUrl = environment.apiUrl;
   private userData: UserData = {
     userLegalFirstName: 'Tsz Yin',
