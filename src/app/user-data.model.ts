@@ -115,6 +115,7 @@ export interface wallet {
   tb_tyapp_wlt_id: string;
   user_id: string;
   display_name: string;
+  currency_id: string;
 }
 
 export interface unit {
@@ -127,6 +128,9 @@ export interface tyNewBillInitData {
   currencies: currency[];
   wallets: wallet[];
   units: unit[];
+  billTitles: string[];
+  billItemsTitleEn: string[];
+  billItemsTitleZh: string[];
 }
 
 export interface tyApiResponseGetNewBillInitData {

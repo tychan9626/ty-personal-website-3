@@ -13,7 +13,12 @@
     </div>
     <div class="col-12 col-sm-6">
       <label>Title</label>
-      <input type="text" class="form-control" [(ngModel)]="billTitle" name="title" />
+      <input list="titleList" type="text" class="form-control" [(ngModel)]="billTitle" name="title" />
+      <datalist id="titleList">
+        @for (title of billTitles; track $index; let idx=$index) {
+        <option value="{{title}}">
+          }
+      </datalist>
     </div>
     <div class="col-12 col-sm-3">
       <label for="billDateTime">Bill Date and Time:</label>
@@ -26,7 +31,7 @@
       <br>
       @for (currency of currencies; track $index; let idx=$index) {
       <button class="tyNewBillBottomMargin tybtn btn"
-        [ngClass]="{'btn-primary': billCurrency.tb_tyapp_crny_id === currency.tb_tyapp_crny_id, 'btn-light': billCurrency.tb_tyapp_crny_id !== currency.tb_tyapp_crny_id}"
+        [ngClass]="{'btn-success': billCurrency.tb_tyapp_crny_id === currency.tb_tyapp_crny_id, 'btn-light': billCurrency.tb_tyapp_crny_id !== currency.tb_tyapp_crny_id}"
         (click)="selectCurrency(currency)">{{ currency.code }}</button>
       &nbsp;
       }
@@ -39,12 +44,11 @@
       <label for="bill_tax">Tax</label>
       <div class="input-group">
         <input type="number" class="form-control" [(ngModel)]="billTax" name="bill_tax" />
-        <button class="tyNewBillBottomMargin tybtn btn btn-outline-secondary" type="button"
-          (click)="calculateBillTax(13)">
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculateBillTax(13)">
           13
         </button>
-        <button class="tyNewBillBottomMargin tybtn btn btn-outline-secondary" type="button"
-          (click)="calculateBillTax(5)">
+        <div class="tyNewBillSplit tyNewBillBottomMargin"></div>
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculateBillTax(5)">
           5
         </button>
       </div>
@@ -79,7 +83,13 @@
     </div>
     <div class="col-12 col-md-3">
       <label>Paid Amount:</label>
-      <input type="number" class="form-control" [(ngModel)]="billPaidAmount" name="paid_amount" required />
+      <div class="input-group">
+        <input type="number" class="form-control" [(ngModel)]="billPaidAmount" name="paid_amount" required />
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculatePaidAmount()"
+          [disabled]="!isCurrencyMatched">
+          Calculate
+        </button>
+      </div>
     </div>
   </div>
 
@@ -99,13 +109,23 @@
             </div>
 
             <div class="col-12">
-              <input id="name_en_{{idx}}" type="text" class="form-control" [placeholder]="'Name (English)'"
-                [(ngModel)]="item.name_en" required>
+              <input list="billItemsTitleEn" id="name_en_{{idx}}" type="text" class="form-control"
+                [placeholder]="'Name (English)'" [(ngModel)]="item.name_en" required>
+              <datalist id="billItemsTitleEn">
+                @for (title of billItemsTitleEn; track $index; let idx=$index) {
+                <option value="{{title}}">
+                  }
+              </datalist>
             </div>
 
             <div class="col-12">
-              <input id="name_zh_{{idx}}" type="text" class="form-control" [placeholder]="'Name (Chinese)'"
-                [(ngModel)]="item.name_zh">
+              <input list="billItemsTitleZh" id="name_zh_{{idx}}" type="text" class="form-control"
+                [placeholder]="'Name (Chinese)'" [(ngModel)]="item.name_zh">
+              <datalist id="billItemsTitleZh">
+                @for (title of billItemsTitleZh; track $index; let idx=$index) {
+                <option value="{{title}}">
+                  }
+              </datalist>
             </div>
 
             <div class="col-12">
@@ -131,11 +151,12 @@
                   [(ngModel)]="item.price" [value]="item.price || ''" />
                 <input id="tax_{{ idx }}" type="number" class="form-control" [placeholder]="'Tax'"
                   [(ngModel)]="item.tax" [value]="item.tax || ''" />
-                <button class="tyNewBillBottomMargin tybtn btn btn-outline-secondary" type="button"
+                <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button"
                   (click)="calculateBillItemTax(idx, 13)">
                   13
                 </button>
-                <button class="tyNewBillBottomMargin tybtn btn btn-outline-secondary" type="button"
+                <div class="tyNewBillSplit tyNewBillBottomMargin"></div>
+                <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button"
                   (click)="calculateBillItemTax(idx, 5)">
                   5
                 </button>

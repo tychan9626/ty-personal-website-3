@@ -1,3 +1,7 @@
 input, .tyNewBillBottomMargin {
   margin-bottom: 10px;
 }
+
+.tyNewBillSplit {
+  width: 3px;
+}

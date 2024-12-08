@@ -35,8 +35,12 @@ export class NewBillComponent {
   currencies!: currency[];
   wallets!: wallet[];
   units!: unit[];
+  billTitles: string[] = [];
+  billItemsTitleEn: string[] = [];
+  billItemsTitleZh: string[] = [];
 
   filteredPaidWallets: wallet[] = [];
+  isCurrencyMatched: boolean = false;
 
   //Bill details:
   billUser!: user;
@@ -67,6 +71,9 @@ export class NewBillComponent {
           this.billCurrency = this.currencies[0];
           this.wallets = data.wallets;
           this.units = data.units;
+          this.billTitles = data.billTitles;
+          this.billItemsTitleEn = data.billItemsTitleEn;
+          this.billItemsTitleZh = data.billItemsTitleZh;
 
           this.billPayer = this.billUser;
           this.updateBillPayerAndClearWallet(this.billUser.id);
@@ -85,6 +92,8 @@ export class NewBillComponent {
   }
   selectCurrency(currency: currency): void {
     this.billCurrency = currency;
+    this.isCurrencyMatched = this.checkCurrencyMatched();
+    this.checkCurrencyWalletPaidAmount();
   }
 
   goBack(): void {
@@ -113,6 +122,9 @@ export class NewBillComponent {
 
     this.paidWallet = this.wallets.find(wallet => wallet.tb_tyapp_wlt_id === walletId) || null;
     this.testBillPayerWallet('onWalletSelect');
+    this.isCurrencyMatched = this.checkCurrencyMatched();
+
+    this.checkCurrencyWalletPaidAmount();
   }
 
   testBillPayerWallet(funcName: string): void {
@@ -223,7 +235,23 @@ export class NewBillComponent {
     });
   }
 
+  calculatePaidAmount(): void {
+    this.billPaidAmount = this.billSubtotal + this.billTax + this.billTips;
+  }
 
+  checkCurrencyMatched(): boolean {
+    if (!this.billCurrency || !this.paidWallet) {
+      return false;
+    } else {
+      return this.billCurrency.tb_tyapp_crny_id === this.paidWallet.currency_id;
+    }
+  }
 
-
+  checkCurrencyWalletPaidAmount(): void {
+    if (this.checkCurrencyMatched()) {
+      this.billPaidAmount = this.billSubtotal + this.billTax + this.billTips;
+    } else {
+      this.billPaidAmount = null;
+    }
+  }
 }
