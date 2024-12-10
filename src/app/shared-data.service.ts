@@ -1,5 +1,5 @@
-import { Injectable, Version } from '@angular/core';
-import { log, tyApiResponseGetNewBillInitData, tyApiResponseSectionLog, tyNewBillInitData, tySectionLog, UserData, version } from './user-data.model';
+import { Injectable } from '@angular/core';
+import { log, new_bill_init_data, ty_api_get_new_bill_init_data, tyApiResponseSectionLog, tySectionLog, UserData, version } from './user-data.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environment/environment';
@@ -478,17 +478,17 @@ export class SharedDataService {
   }
 
 
-  private tyNewBillInitData!: tyNewBillInitData;
-  private tyNewBillInitDataSource = new BehaviorSubject<tyNewBillInitData>(this.tyNewBillInitData);
+  private tyNewBillInitData!: new_bill_init_data;
+  private tyNewBillInitDataSource = new BehaviorSubject<new_bill_init_data>(this.tyNewBillInitData);
   tyNewBillInitDataSource$ = this.tyNewBillInitDataSource.asObservable();
 
   getNewBillInitData(): void {
-    this.http.get<tyApiResponseGetNewBillInitData>(`${this.apiUrl}/tywebapp/bill/get-new-bill-init-value`).subscribe({
-      next: (response: tyApiResponseGetNewBillInitData) => {
+    this.http.get<ty_api_get_new_bill_init_data>(`${this.apiUrl}/tywebapp/bill/get-new-bill-init-value`).subscribe({
+      next: (response: ty_api_get_new_bill_init_data) => {
         if (response.success) {
           this.tyNewBillInitData = response.data;
           this.tyNewBillInitDataSource.next(this.tyNewBillInitData);
-          //console.log(JSON.stringify(this.tyNewBillInitData));
+          console.log(JSON.stringify(this.tyNewBillInitData));
         } else {
           console.log('No logs found or request failed');
         }

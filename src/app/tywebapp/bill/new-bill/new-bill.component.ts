@@ -2,22 +2,12 @@ import { SharedDataService } from './../../../shared-data.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { currency, unit, user, wallet } from '../../../user-data.model';
+import { bill_info, bill_item, currency, new_bill_init_data, submit_bill, unit, user, wallet } from '../../../user-data.model';
 import { CommonModule } from '@angular/common';
 import * as bootstrap from 'bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environment/environment';
 
-interface BillItem {
-  name_en: string;
-  name_zh: string;
-  amount: number | null;
-  unit: unit | null;
-  description: string;
-  price: number | null;
-  tax: number | null;
-  on_sale: boolean;
-}
 @Component({
   selector: 'app-new-bill',
   standalone: true,
@@ -27,60 +17,86 @@ interface BillItem {
 })
 export class NewBillComponent {
   @ViewChild('previewModal') previewModal!: ElementRef;
+
+  //Bill init data - START
+  all_users: user[] = [];
+  all_currencies: currency[] = [];
+  all_wallets: wallet[] = [];
+  all_units: unit[] = [];
+  all_bill_address_en: string[] = [];
+  all_bill_address_zh: string[] = [];
+  all_bill_organization_en: string[] = [];
+  all_bill_organization_zh: string[] = [];
+  all_bill_action: string[] = [];
+  all_bill_item_name_en: string[] = [];
+  all_bill_item_name_zh: string[] = [];
+  //Bill init data - END
+
+
+  //Private variables - START
   private apiUrl = environment.apiUrl;
+  //Private variables - END
 
-  responseMessage: string = '';
 
-  users!: user[];
-  currencies!: currency[];
-  wallets!: wallet[];
-  units!: unit[];
-  billTitles: string[] = [];
-  billItemsTitleEn: string[] = [];
-  billItemsTitleZh: string[] = [];
+  //Public variables - START
+  filtered_bill_users: user[] = [];
+  filtered_paid_wallets: wallet[] = [];
+  response_message: string = '';
+  is_currency_matched: boolean = false;
 
-  filteredPaidWallets: wallet[] = [];
-  isCurrencyMatched: boolean = false;
+  is_input_organization_zh: boolean = false;
+  organization_zh_visible_button_text: string = 'Add Organization (Chinese)';
+  is_input_address: boolean = false;
+  address_visible_button_text: string = 'Add Address';
+  is_input_remarks: boolean = false;
+  remarks_visible_button_text: string = 'Add Remarks';
+  //Public variables - END
 
-  //Bill details:
-  billUser!: user;
-  billTitle: string | null = null;
-  billDateTime: string | null = null; // User's local date-time as string
-  timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  billCurrency!: currency;
-  billSubtotal: number = 0;
-  billTax: number = 0;
-  billTips: number = 0;
-  billPayer: user | null = null;
-  paidWallet: wallet | null = null;
-  billPaidAmount: number | null = null;
 
-  billItems: BillItem[] = [];
+  //Bill info - START
+  bill: bill_info = {
+    bill_user: null,
+    address_en: '',
+    address_zh: '',
+    organization_en: '',
+    organization_zh: '',
+    action: '',
+    date_time: '',
+    bill_currency: null,
+    bill_subtotal: 0,
+    bill_tax: 0,
+    bill_tips: 0,
+    bill_payer: null,
+    paid_wallet: null,
+    paid_amount: 0,
+    remarks: '',
+  };
 
-  constructor(private router: Router, private http: HttpClient, private sharedDataService: SharedDataService) { }
+  // Bill items - START
+  bill_items: bill_item[] = [];
+  // Bill items - END
+
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private sharedDataService: SharedDataService
+  ) { }
 
   ngOnInit() {
-
-    this.billUser = JSON.parse(localStorage.getItem('user') || '{}');
+    this.bill.bill_user = JSON.parse(localStorage.getItem('user') || '{}');
 
     this.sharedDataService.tyNewBillInitDataSource$.subscribe({
-      next: (data) => {
+      next: (data: new_bill_init_data) => {
         if (data) {
-          this.users = data.users;
-          this.currencies = data.currencies;
-          this.billCurrency = this.currencies[0];
-          this.wallets = data.wallets;
-          this.units = data.units;
-          this.billTitles = data.billTitles;
-          this.billItemsTitleEn = data.billItemsTitleEn;
-          this.billItemsTitleZh = data.billItemsTitleZh;
+          this.bUpdateNewBillInitData(data);
+          this.filtered_bill_users = [this.all_users[0]];
+          this.bill.bill_payer = this.bill.bill_user;
+          this.bill.bill_currency = this.all_currencies[0];
+          this.updateBillPayerAndClearWallet(this.bill.bill_payer!.id);
+          this.addNewBillItem();
 
-          this.billPayer = this.billUser;
-          this.updateBillPayerAndClearWallet(this.billUser.id);
 
-          this.addNewItem();
-
-          //console.log(JSON.stringify(this.currencies));
+          console.log("all_bill_action:", JSON.stringify(this.all_bill_action))
         } else {
           console.log('No data available in sharedDataService');
         }
@@ -90,92 +106,126 @@ export class NewBillComponent {
       },
     });
   }
-  selectCurrency(currency: currency): void {
-    this.billCurrency = currency;
-    this.isCurrencyMatched = this.checkCurrencyMatched();
-    this.checkCurrencyWalletPaidAmount();
-  }
 
   goBack(): void {
     this.router.navigate(['tywebapp/menu']);
   }
+  bUpdateNewBillInitData(data: new_bill_init_data | null): boolean {
+    const defaultValues = {
+      all_users: [],
+      all_currencies: [],
+      all_wallets: [],
+      all_units: [],
+      all_bill_address_en: [],
+      all_bill_address_zh: [],
+      all_bill_organization_en: [],
+      all_bill_organization_zh: [],
+      all_bill_action: [],
+      all_bill_item_name_en: [],
+      all_bill_item_name_zh: [],
+    };
+
+    const effectiveData = data ?? defaultValues;
+
+    Object.assign(this, effectiveData);
+
+    return true;
+  }
+
+
+  updateBillPayerAndClearWallet(userId: string): void {
+    this.bill.bill_payer = this.all_users.find(user => user.id === userId) || null;
+    this.filtered_paid_wallets = this.all_wallets.filter(wallet => wallet.user_id === userId);
+    this.bill.paid_wallet = null;
+  }
+
+  addNewBillItem() {
+    const new_item: bill_item = {
+      name_en: null,
+      name_zh: null,
+      amount: null,
+      unit: null,
+      qty: null,
+      description: null,
+      price: null,
+      tax: null,
+      on_sale: false,
+      private: false
+    };
+    this.bill_items.push(new_item);
+  }
+
+  removeBillItem(index: number) {
+    this.bill_items.splice(index, 1);
+  }
+
+  selectCurrency(currency: currency): void {
+    this.bill.bill_currency = currency;
+    this.checkBillWalletCurrencyAndUpdatePaidAmount();
+  }
+
+  checkBillWalletCurrencyAndUpdatePaidAmount(): void {
+    this.is_currency_matched = this.checkCurrencyMatched();
+    if (this.is_currency_matched) {
+      this.calculatePaidAmount();
+    } else {
+      this.bill.paid_amount = null;
+    }
+  }
+
+  calculatePaidAmount(): void {
+    const amount: number = (this.bill.bill_subtotal ?? 0) +
+      (this.bill.bill_tax ?? 0) +
+      (this.bill.bill_tips ?? 0);
+    this.bill.paid_amount = parseFloat(amount.toFixed(2));
+  }
+
+  checkCurrencyMatched(): boolean {
+    if (!this.bill.bill_currency || !this.bill.paid_wallet) {
+      return false;
+    } else {
+      return this.bill.bill_currency.id === this.bill.paid_wallet.currency_id;
+    }
+  }
 
   onBillPayerSelect(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement; // 类型断言
+    const selectElement = event.target as HTMLSelectElement;
     const userId = selectElement.value;
-
     this.updateBillPayerAndClearWallet(userId);
   }
 
-  updateBillPayerAndClearWallet(userId: string): void {
-    this.billPayer = this.users.find(user => user.id === userId) || null;
-
-    this.filteredPaidWallets = this.wallets.filter(wallet => wallet.user_id === userId);
-    this.paidWallet = null;
-
-    this.testBillPayerWallet('updateBillPayerAndClearWallet');
-  }
-
   onWalletSelect(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement; // 类型断言
+    const selectElement = event.target as HTMLSelectElement;
     const walletId = selectElement.value;
-
-    this.paidWallet = this.wallets.find(wallet => wallet.tb_tyapp_wlt_id === walletId) || null;
-    this.testBillPayerWallet('onWalletSelect');
-    this.isCurrencyMatched = this.checkCurrencyMatched();
-
-    this.checkCurrencyWalletPaidAmount();
-  }
-
-  testBillPayerWallet(funcName: string): void {
-    console.log("Executing function: " + funcName + "() \n"
-      + "billPayer: " + JSON.stringify(this.billPayer) + '\n'
-      + "paidWallet: " + JSON.stringify(this.paidWallet)
-    );
-  }
-
-  addNewItem() {
-    const newItem: BillItem = {
-      name_en: '',
-      name_zh: '',
-      amount: null,
-      unit: null,
-      description: '',
-      price: null,
-      tax: null,
-      on_sale: false
-    };
-    this.billItems.push(newItem);
-  }
-
-  removeItem(index: number) {
-    this.billItems.splice(index, 1);
+    this.bill.paid_wallet = this.all_wallets.find(wallet => wallet.id === walletId) || null;
+    this.checkBillWalletCurrencyAndUpdatePaidAmount();
   }
 
   onUnitSelect(event: Event, index: number): void {
     const selectedUnitId = (event.target as HTMLSelectElement).value;
-    const selectedUnit = this.units.find(unit => unit.tb_tyapp_unt_id === selectedUnitId) || null;
-
+    const selectedUnit = this.all_units.find(unit => unit.id === selectedUnitId) || null;
     if (selectedUnit) {
-      this.billItems[index].unit = selectedUnit;
+      this.bill_items[index].unit = selectedUnit;
     }
-
-    console.log('Updated Bill Item:', this.billItems[index]);
   }
 
   calculateBillItemTax(index: number, taxRate: number): void {
-    if (this.billItems[index].price) {
-      this.billItems[index].tax = this.calculateTax(this.billItems[index].price, taxRate);
+    if (this.bill_items[index].price) {
+      this.bill_items[index].tax = this.calculatePercentage(this.bill_items[index].price, taxRate);
     }
   }
 
   calculateBillTax(taxRate: number): void {
-    this.billTax = this.calculateTax(this.billSubtotal, taxRate);
+    this.bill.bill_tax = this.calculatePercentage(this.bill.bill_subtotal ?? 0, taxRate);
   }
 
-  calculateTax(price: number, taxRate: number): number {
-    const taxAmount = price * taxRate / 100;
-    return parseFloat(taxAmount.toFixed(2));
+  calculateBillTips(taxRate: number): void {
+    this.bill.bill_tips = this.calculatePercentage((this.bill.bill_subtotal ?? 0) + (this.bill.bill_tax ?? 0), taxRate);
+  }
+
+  calculatePercentage(price: number, percentage: number): number {
+    const amount = price * percentage / 100;
+    return parseFloat(amount.toFixed(2));
   }
 
   showPreview(): void {
@@ -187,71 +237,120 @@ export class NewBillComponent {
   }
 
   initializeForm() {
-    this.billTitle = null;
-    this.billCurrency = this.currencies[0];
-    this.billSubtotal = 0;
-    this.billTax = 0;
-    this.billTips = 0;
-    this.paidWallet = null;
-    this.billPaidAmount = null;
-    this.billItems = [];
+    this.bUpdateNewBillInitData(null);
   }
 
   submitData(): void {
-    const localDateTime = new Date(this.billDateTime!); // Local time as Date object
+    const localDateTime = new Date(this.bill.date_time ?? ''); // Local time as Date object
     const utcDateTime = new Date(localDateTime.toISOString()); // Convert to UTC
 
-    const payload = {
-      user_id: this.billUser.id,
-      bill_currency_id: this.billCurrency.tb_tyapp_crny_id,
-      bill_subtotal: this.billSubtotal,
-      bill_tax: this.billTax,
-      bill_tip: this.billTips,
-      paid_wallet_id: this.paidWallet?.tb_tyapp_wlt_id,
-      paid_amount: this.billPaidAmount,
-      title: this.billTitle,
-      bill_datetime: utcDateTime,
-      billItems: this.billItems.map((item) => ({
+    const payload: submit_bill = {
+      bill_user_id: this.bill.bill_user?.id || '',
+      address_en: this.bill.address_en,
+      address_zh: this.bill.address_zh,
+      organization_en: this.bill.organization_en,
+      organization_zh: this.bill.organization_zh,
+      action: this.bill.action,
+      date_time: utcDateTime.toISOString(),
+      bill_currency_id: this.bill.bill_currency?.id || '',
+      bill_subtotal: this.bill.bill_subtotal,
+      bill_tax: this.bill.bill_tax,
+      bill_tips: this.bill.bill_tips,
+      bill_payer_id: this.bill.bill_payer?.id || '',
+      paid_wallet_id: this.bill.paid_wallet?.id || '',
+      paid_amount: this.bill.paid_amount,
+      remarks: this.bill.remarks,
+      bill_items: this.bill_items.map((item) => ({
         name_en: item.name_en,
         name_zh: item.name_zh,
         amount: item.amount,
-        unit_id: item.unit?.tb_tyapp_unt_id,
+        unit_id: item.unit?.id || '',
+        qty: item.qty,
         description: item.description,
         price: item.price,
         tax: item.tax,
-      })),
+        on_sale: item.on_sale,
+        private: item.private
+      })
+      ),
     };
+
+    // bill_user_id: this.billUser.id,
+    // bill_currency_id: this.billCurrency.tb_tyapp_crny_id,
+    // bill_subtotal: this.billSubtotal,
+    // bill_tax: this.billTax,
+    // bill_tip: this.billTips,
+    // paid_wallet_id: this.paidWallet?.tb_tyapp_wlt_id,
+    // paid_amount: this.billPaidAmount,
+    // title: this.billTitle,
+    // bill_datetime: utcDateTime,
+    // billItems: this.billItems.map((item) => ({
+    //   name_en: item.name_en,
+    //   name_zh: item.name_zh,
+    //   amount: item.amount,
+    //   unit_id: item.unit?.tb_tyapp_unt_id,
+    //   description: item.description,
+    //   price: item.price,
+    //   tax: item.tax,
+    // })
 
     this.http.post(`${this.apiUrl}/tywebapp/bill/submitNewBill`, payload).subscribe({
       next: (response) => {
-        this.responseMessage = 'Bill created successfully!';
+        this.response_message = 'Bill created successfully!';
         this.initializeForm();
         const modalInstance = bootstrap.Modal.getInstance(this.previewModal.nativeElement);
         modalInstance!.hide();
       },
       error: (error) => {
-        this.responseMessage = 'Failed to create bill.';
+        this.response_message = `Error: ${error.status} - ${error.message}`;
       },
     });
+    console.log(JSON.stringify(payload));
   }
 
-  calculatePaidAmount(): void {
-    this.billPaidAmount = this.billSubtotal + this.billTax + this.billTips;
+  onBillUserSelect(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const userId = selectElement.value;
+    this.bill.bill_user = this.all_users.find(user => user.id === userId) || null;
   }
 
-  checkCurrencyMatched(): boolean {
-    if (!this.billCurrency || !this.paidWallet) {
-      return false;
+  onBillCurrencySelect(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const currencyId = selectElement.value;
+    this.bill.bill_currency = this.all_currencies.find(currency => currency.id === currencyId) || null;
+  }
+
+  changeOrganizationZhVisible() {
+    if (this.is_input_organization_zh) {
+      this.is_input_organization_zh = false;
+      this.bill.organization_zh = '';
+      this.organization_zh_visible_button_text = 'Add Organization (Chinese)';
     } else {
-      return this.billCurrency.tb_tyapp_crny_id === this.paidWallet.currency_id;
+      this.is_input_organization_zh = true;
+      this.organization_zh_visible_button_text = 'Remove Organization (Chinese)';
     }
   }
 
-  checkCurrencyWalletPaidAmount(): void {
-    if (this.checkCurrencyMatched()) {
-      this.billPaidAmount = this.billSubtotal + this.billTax + this.billTips;
+  changeAddressVisible() {
+    if (this.is_input_address) {
+      this.is_input_address = false;
+      this.bill.address_en = '';
+      this.bill.address_zh = '';
+      this.address_visible_button_text = 'Add Address';
     } else {
-      this.billPaidAmount = null;
+      this.is_input_address = true;
+      this.address_visible_button_text = 'Remove Address';
+    }
+  }
+
+  changeRemarksVisible() {
+    if (this.is_input_remarks) {
+      this.is_input_remarks = false;
+      this.bill.remarks = '';
+      this.remarks_visible_button_text = 'Add Remarks';
+    } else {
+      this.is_input_remarks = true;
+      this.remarks_visible_button_text = 'Remove Remarks';
     }
   }
 }
