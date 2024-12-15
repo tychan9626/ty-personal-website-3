@@ -1,0 +1,41 @@
+.preview-container {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.preview-item-base {
+  margin: 0.2em;
+  margin-bottom: 0.2em;
+  padding: 1em;
+  padding-top: 1em;
+  text-align: center;
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  height: 30em;
+}
+
+
+.ty-container-big {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1680px) {
+  .ty-container-big {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 576px) {
+  .preview-item-base {
+    height: 28em;
+  }
+}
+
+.button-group button {
+  margin-right: 10px;
+}

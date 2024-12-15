@@ -12,6 +12,7 @@ import { HknhaDeisgnComponent } from './special/hknha-deisgn/hknha-deisgn.compon
 import { LbwebDeisgnComponent } from './special/lbweb-deisgn/lbweb-deisgn.component';
 import { TywebDeisgnComponent } from './special/tyweb-deisgn/tyweb-deisgn.component';
 import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
+import { ProjectsHomepageComponent } from './special/projects-homepage/projects-homepage.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'tywebapp/menu', component: TyMenuComponent, canActivate: [AuthGuard] },
   { path: 'tywebapp/cms/panel', component: PanelComponent, canActivate: [AuthGuard] },
   { path: 'tywebapp/bill/new-bill', component: NewBillComponent, canActivate: [AuthGuard] },
+  { path: 'proj', component: ProjectsHomepageComponent },
   { path: 'proj/cityucg', component: CityugeDeisgnComponent },
   { path: 'proj/hknha', component: HknhaDeisgnComponent },
   { path: 'proj/0xblanc', component: LbwebDeisgnComponent },

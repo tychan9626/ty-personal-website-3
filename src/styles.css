@@ -148,3 +148,7 @@ button:hover {
 .tyspecial-arial {
     font-family: 'Arial', sans-serif;
 }
+
+.text-uppercase {
+  text-transform: uppercase;
+}

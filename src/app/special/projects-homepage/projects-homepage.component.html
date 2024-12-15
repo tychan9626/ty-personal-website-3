@@ -1,0 +1,40 @@
+<div class="container">
+  <h1 class="py-1 text-center">{{ page_title }}</h1>
+</div>
+@if (display_mode == "dp51") {
+<div class="ty-container-big">
+  <div class="preview-container row">
+    @for (project of all_design_projects_preview; track $index; let idx = $index) {
+    @if(idx % 2 == 0) {
+    <div class="w-100"></div>
+    }
+    <div class="preview-item-base col-lg {{project.dp51_text_style}} d-flex flex-column"
+      style="background-image: url({{project.dp51_banner_image}});">
+      <h3 class="mb-2">{{ project.dp51_title }}</h3>
+
+      @for (desc of project.dp51_description; track $index) {
+      <h5 class="mb-3">{{desc}}</h5>
+      }
+
+      <div class="button-group">
+        @if (project.dp51_detail_links) {
+        <button class="tybtn btn {{project.dp51_detail_links_button_style}} rounded-pill"
+          [routerLink]="[project.dp51_detail_links]">Learn More</button>
+        }
+        @if (project.dp51_website_links) {
+        <button class="tybtn btn {{project.dp51_website_links_button_style}} rounded-pill"
+          (click)="navigateURL(project.dp51_website_links)">Visit
+          Website</button>
+        }
+        @if (project.dp51_archive_website_links) {
+        <button class="tybtn btn {{project.dp51_website_links_button_style}} rounded-pill"
+          (click)="navigateURL(project.dp51_archive_website_links)">View
+          Archive</button>
+        }
+      </div>
+
+    </div>
+    }
+  </div>
+</div>
+}

@@ -152,6 +152,7 @@ export interface UserData {
 export interface user {
   id: string;
   display_name: string;
+  role: number;
 }
 
 export interface currency {
@@ -234,7 +235,7 @@ export interface submit_bill {
 
 
 export interface bill_item {
-  name_en: string | null;
+  name_en: string;
   name_zh: string | null;
   amount: number | null;
   unit: unit | null;
@@ -257,4 +258,30 @@ export interface submit_bill_item {
   tax: number | null;
   on_sale: boolean;
   private: boolean;
+}
+
+export interface project_preview {
+  _id: string;
+  code: string;
+  dp51_banner_image?: string;
+  dp51_title?: string;
+  dp51_description?: string[];
+  dp51_detail_links?: string;
+  dp51_website_links?: string;
+  dp51_archive_website_links?: string;
+  dp51_display_sequence?: number;
+  dp51_text_style?: string;
+  dp51_website_links_button_style?: string;
+  dp51_detail_links_button_style?: string;
+}
+
+export interface ty_api_get_projects_preview {
+  success: boolean;
+  data: ty_api_projects_preview_response_data;
+}
+
+export interface ty_api_projects_preview_response_data {
+  page_title: string;
+  display_mode: string;
+  all_design_projects_preview: project_preview[];
 }

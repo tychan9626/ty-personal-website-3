@@ -21,7 +21,8 @@ export class AppComponent implements OnInit, OnDestroy {
       window.removeEventListener('beforeunload', this.clearLocalStorage);
     }
     this.sharedDataService.connectTySectionLog();
-    this.sharedDataService.getNewBillInitData()
+    this.sharedDataService.getNewBillInitData();
+    this.sharedDataService.getProjectPreviewData();
   }
 
   ngOnDestroy(): void {

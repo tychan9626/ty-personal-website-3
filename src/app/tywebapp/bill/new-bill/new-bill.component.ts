@@ -35,6 +35,7 @@ export class NewBillComponent {
 
   //Private variables - START
   private apiUrl = environment.apiUrl;
+  private loginUser: user = JSON.parse(localStorage.getItem('user') || '{}');
   //Private variables - END
 
 
@@ -46,10 +47,12 @@ export class NewBillComponent {
 
   is_input_organization_zh: boolean = false;
   organization_zh_visible_button_text: string = 'Add Organization (Chinese)';
-  is_input_address: boolean = false;
+  is_input_address: boolean = true;
   address_visible_button_text: string = 'Add Address';
   is_input_remarks: boolean = false;
   remarks_visible_button_text: string = 'Add Remarks';
+
+  add_bill_items_qty: number = 0;
   //Public variables - END
 
 
@@ -83,20 +86,23 @@ export class NewBillComponent {
   ) { }
 
   ngOnInit() {
-    this.bill.bill_user = JSON.parse(localStorage.getItem('user') || '{}');
-
     this.sharedDataService.tyNewBillInitDataSource$.subscribe({
       next: (data: new_bill_init_data) => {
         if (data) {
           this.bUpdateNewBillInitData(data);
-          this.filtered_bill_users = [this.all_users[0]];
+          if (this.loginUser.role === 999) {
+            this.filtered_bill_users = this.all_users;
+          } else {
+            this.filtered_bill_users = [this.loginUser];
+          }
+
+          this.bill.bill_user = this.loginUser;
           this.bill.bill_payer = this.bill.bill_user;
           this.bill.bill_currency = this.all_currencies[0];
           this.updateBillPayerAndClearWallet(this.bill.bill_payer!.id);
-          this.addNewBillItem();
 
 
-          console.log("all_bill_action:", JSON.stringify(this.all_bill_action))
+          //console.log("all_bill_action:", JSON.stringify(this.all_bill_action))
         } else {
           console.log('No data available in sharedDataService');
         }
@@ -141,7 +147,7 @@ export class NewBillComponent {
 
   addNewBillItem() {
     const new_item: bill_item = {
-      name_en: null,
+      name_en: '',
       name_zh: null,
       amount: null,
       unit: null,
@@ -261,7 +267,7 @@ export class NewBillComponent {
       paid_amount: this.bill.paid_amount,
       remarks: this.bill.remarks,
       bill_items: this.bill_items.map((item) => ({
-        name_en: item.name_en,
+        name_en: item.name_en.toUpperCase(),
         name_zh: item.name_zh,
         amount: item.amount,
         unit_id: item.unit?.id || '',
@@ -275,25 +281,6 @@ export class NewBillComponent {
       ),
     };
 
-    // bill_user_id: this.billUser.id,
-    // bill_currency_id: this.billCurrency.tb_tyapp_crny_id,
-    // bill_subtotal: this.billSubtotal,
-    // bill_tax: this.billTax,
-    // bill_tip: this.billTips,
-    // paid_wallet_id: this.paidWallet?.tb_tyapp_wlt_id,
-    // paid_amount: this.billPaidAmount,
-    // title: this.billTitle,
-    // bill_datetime: utcDateTime,
-    // billItems: this.billItems.map((item) => ({
-    //   name_en: item.name_en,
-    //   name_zh: item.name_zh,
-    //   amount: item.amount,
-    //   unit_id: item.unit?.tb_tyapp_unt_id,
-    //   description: item.description,
-    //   price: item.price,
-    //   tax: item.tax,
-    // })
-
     this.http.post(`${this.apiUrl}/tywebapp/bill/submitNewBill`, payload).subscribe({
       next: (response) => {
         this.response_message = 'Bill created successfully!';
@@ -305,7 +292,7 @@ export class NewBillComponent {
         this.response_message = `Error: ${error.status} - ${error.message}`;
       },
     });
-    console.log(JSON.stringify(payload));
+    //console.log(JSON.stringify(payload));
   }
 
   onBillUserSelect(event: Event): void {
@@ -351,6 +338,19 @@ export class NewBillComponent {
     } else {
       this.is_input_remarks = true;
       this.remarks_visible_button_text = 'Remove Remarks';
+    }
+  }
+
+  addBillItemsColumnByNumber() {
+    for (let i = 0; i < this.add_bill_items_qty; i++) {
+      this.addNewBillItem();
+    }
+    this.add_bill_items_qty = 0;
+  }
+
+  addBillItemsOnSale() {
+    for (let i = 0; i < this.bill_items.length; i++) {
+      this.bill_items[i].on_sale = true;
     }
   }
 }

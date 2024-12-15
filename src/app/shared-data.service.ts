@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { log, new_bill_init_data, ty_api_get_new_bill_init_data, tyApiResponseSectionLog, tySectionLog, UserData, version } from './user-data.model';
+import { log, new_bill_init_data, project_preview, ty_api_get_new_bill_init_data, ty_api_get_projects_preview, ty_api_projects_preview_response_data, tyApiResponseSectionLog, tySectionLog, UserData, version } from './user-data.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environment/environment';
@@ -488,7 +488,7 @@ export class SharedDataService {
         if (response.success) {
           this.tyNewBillInitData = response.data;
           this.tyNewBillInitDataSource.next(this.tyNewBillInitData);
-          console.log(JSON.stringify(this.tyNewBillInitData));
+          //console.log(JSON.stringify(this.tyNewBillInitData));
         } else {
           console.log('No logs found or request failed');
         }
@@ -501,6 +501,27 @@ export class SharedDataService {
 
   getTestingStatus(): boolean {
     return this.isTesting;
+  }
+
+  private project_preview_data!: ty_api_projects_preview_response_data;
+  private project_preview_data_source = new BehaviorSubject<ty_api_projects_preview_response_data>(this.project_preview_data);
+  project_preview_data_source$ = this.project_preview_data_source.asObservable();
+
+  getProjectPreviewData(): void {
+    this.http.get<ty_api_get_projects_preview>(`${this.apiUrl}/projects/get-projects-preview-data`).subscribe({
+      next: (response: ty_api_get_projects_preview) => {
+        if (response.success) {
+          this.project_preview_data = response.data;
+          this.project_preview_data_source.next(this.project_preview_data);
+          //console.log(JSON.stringify(this.project_preview_data));
+        } else {
+          console.log('No project preview data found or request failed');
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching project preview data:', error);
+      },
+    });
   }
 }
 
