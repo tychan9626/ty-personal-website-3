@@ -1,0 +1,412 @@
+<div class="container">
+  <h2>Add Bill</h2>
+  <hr>
+  <button class="tybtn btn btn-primary rounded-pill" (click)="goBack()">← Back to menu</button> &nbsp;
+  <button class="tybtn btn btn-primary rounded-pill" (click)="addNewBillItem()">Add Bill Item</button> &nbsp;
+  @if (!is_input_organization_zh) {
+  <button class="tybtn btn btn-primary rounded-pill"
+    (click)="changeOrganizationZhVisible()">{{organization_zh_visible_button_text}}</button>&nbsp;
+  }
+  @if (!is_input_address) {
+  <button class="tybtn btn btn-primary rounded-pill"
+    (click)="changeAddressVisible()">{{address_visible_button_text}}</button>&nbsp;
+  }
+  @if (!is_input_remarks) {
+  <button class="tybtn btn btn-primary rounded-pill"
+    (click)="changeRemarksVisible()">{{remarks_visible_button_text}}</button>&nbsp;
+  }
+  <button class="tybtn btn btn-primary rounded-pill" (click)="addBillItemsOnSale()">All bill items on
+    sale</button>&nbsp;
+  <button class="tybtn btn btn-primary rounded-pill" (click)="showPreview()">Next →</button> &nbsp;
+  <div class="text-danger">{{ response_message }}</div>
+  <hr>
+  <div class="row">
+    <div class="col-12 col-sm-2">
+      <label>User</label>
+      <select id="bill-user-select" class="form-select" [value]="bill.bill_user?.id || ''"
+        (change)="onBillUserSelect($event)" [disabled]="filtered_bill_users.length === 1">
+        @if (filtered_bill_users.length === 1) {
+        <option [value]="filtered_bill_users[0].id" selected>{{filtered_bill_users[0].display_name }}</option>
+        } @else {
+        <option value="" disabled selected>Select a user</option>
+        <option *ngFor="let user of filtered_bill_users" [value]="user.id">
+          {{ user.display_name }}
+        </option>
+        }
+      </select>
+    </div>
+
+    <div class="col-12 col-sm-4">
+      <label>Organization (English)</label>
+      <input list="bill_organization_en_list" type="text" class="form-control" [(ngModel)]="bill.organization_en"
+        name="organization_en" />
+      <datalist id="bill_organization_en_list">
+        @for (item of all_bill_organization_en; track $index; let idx=$index) {
+        <option value="{{item}}">
+          }
+      </datalist>
+    </div>
+
+    <div class="col-12 col-sm-3">
+      <label>Action</label>
+      <input list="bill_action_list" type="text" class="form-control" [(ngModel)]="bill.action" name="function" />
+      <datalist id="bill_action_list">
+        @for (item of all_bill_action; track $index; let idx=$index) {
+        <option value="{{item}}">
+          }
+      </datalist>
+    </div>
+
+    <div class="col-12 col-sm-3">
+      <label for="billDateTime">Bill Date and Time:</label>
+      <input type="datetime-local" id="billDateTime" [(ngModel)]="bill.date_time" class="form-control">
+    </div>
+
+    <div class="col-12 col-sm-2">
+      <label>Bill currency</label>
+      <!-- @for (currency of all_currencies; track $index; let idx=$index) {
+      <button class="tyNewBillBottomMargin tybtn btn"
+        [ngClass]="{'btn-success': bill.bill_currency!.id  === currency.id, 'btn-light': bill.bill_currency!.id !== currency.id}"
+        (click)="selectCurrency(currency)">{{ currency.display_name }}</button>
+      &nbsp;
+      } -->
+      <select id="bill-currency-select" class="form-select" [value]="bill.bill_currency?.id || ''"
+        (change)="onBillCurrencySelect($event)" [disabled]="all_currencies.length === 1">
+        @if (all_currencies.length === 1) {
+        <option [value]="all_currencies[0].id" selected>{{all_currencies[0].display_name }}</option>
+        } @else {
+        <option value="" disabled selected>Select a currency</option>
+        <option *ngFor="let currency of all_currencies" [value]="currency.id">
+          {{ currency.display_name }}
+        </option>
+        }
+      </select>
+
+    </div>
+    <div class="col-12 col-sm-3">
+      <label for="bill_subtotal">Subtotal</label>
+      <input type="number" class="form-control" [(ngModel)]="bill.bill_subtotal" name="bill_subtotal" />
+    </div>
+
+    <div class="col-12 col-sm-4">
+      <label for="bill_tax">Tax</label>
+      <div class="input-group">
+        <input type="number" class="form-control" [(ngModel)]="bill.bill_tax" name="bill_tax" />
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculateBillTax(13)">
+          13
+        </button>
+        <div class="tyNewBillSplit tyNewBillBottomMargin"></div>
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculateBillTax(5)">
+          5
+        </button>
+        <div class="tyNewBillSplit tyNewBillBottomMargin"></div>
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculateBillTax(0)">
+          0
+        </button>
+      </div>
+
+    </div>
+    <div class="col-12 col-sm-3">
+      <label for="bill_tip">Tips</label>
+      <div class="input-group">
+        <input type="number" class="form-control" [(ngModel)]="bill.bill_tips" name="bill_tip" />
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculateBillTips(15)">
+          15
+        </button>
+        <div class="tyNewBillSplit tyNewBillBottomMargin"></div>
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculateBillTips(10)">
+          10
+        </button>
+        <div class="tyNewBillSplit tyNewBillBottomMargin"></div>
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculateBillTips(0)">
+          0
+        </button>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-2">
+      <label for="billPayerSelect">Bill Payer</label>
+      <select id="bill-payer-select" class="form-select" [value]="bill.bill_payer?.id || ''"
+        (change)="onBillPayerSelect($event)" [disabled]="all_users.length === 1">
+        @if (all_users.length === 1) {
+        <option [value]="all_users[0].id" selected>{{all_users[0].display_name }}</option>
+        } @else {
+        <option value="" disabled selected>Select a user</option>
+        <option *ngFor="let user of all_users" [value]="user.id">
+          {{ user.display_name }}
+        </option>
+        }
+      </select>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <label for="walletSelect">Wallet</label>
+      <select id="paid-wallet-select" class="form-select" [value]="bill.paid_wallet?.id || ''"
+        (change)="onWalletSelect($event)" [disabled]="filtered_paid_wallets.length === 1">
+        @if (filtered_paid_wallets.length === 1) {
+        <option [value]="filtered_paid_wallets[0].id" selected>{{filtered_paid_wallets[0].display_name }}</option>
+        } @else {
+        <option value="" disabled selected>Select a wallet</option>
+        <option *ngFor="let wallet of filtered_paid_wallets" [value]="wallet.id">
+          {{ wallet.display_name }}
+        </option>
+        }
+      </select>
+    </div>
+    <div class="col-12 col-md-4">
+      <label>Paid Amount</label>
+      <div class="input-group">
+        <input type="number" class="form-control" [(ngModel)]="bill.paid_amount" name="paid_amount" required />
+        <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button" (click)="calculatePaidAmount()"
+          [disabled]="!is_currency_matched">
+          Calculate
+        </button>
+      </div>
+    </div>
+
+    @if (is_input_organization_zh) {
+    <div class="col-12 col-md-4">
+      <label>Organization (Chinese)</label>
+      <div class="input-group">
+        <input list="bill_organization_zh_list" type="text" class="form-control" [(ngModel)]="bill.organization_zh"
+          name="organization_zh" />
+        <datalist id="bill_organization_zh_list">
+          @for (item of all_bill_organization_zh; track $index; let idx=$index) {
+          <option value="{{item}}">
+            }
+        </datalist>
+        <button class="tyNewBillBottomMargin tybtn btn btn-danger" type="button"
+          (click)="changeOrganizationZhVisible()">✖</button>
+      </div>
+
+    </div>
+    }
+    @if (is_input_address) {
+    <div class="col-12 col-md-8">
+      <label>Address</label>
+      <div class="input-group">
+        <input list="bill_address_en_list" type="text" class="form-control" [(ngModel)]="bill.address_en"
+          name="address_en" placeholder="English" />
+        <datalist id="bill_address_en_list">
+          @for (item of all_bill_address_en; track $index; let idx=$index) {
+          <option value="{{item}}">
+            }
+        </datalist>
+        <input list="bill_address_zh_list" type="text" class="form-control" [(ngModel)]="bill.address_zh"
+          name="address_zh" placeholder="Chinese" />
+        <datalist id="bill_address_zh_list">
+          @for (item of all_bill_address_zh; track $index; let idx=$index) {
+          <option value="{{item}}">
+            }
+        </datalist>
+        <button class="tyNewBillBottomMargin tybtn btn btn-danger" type="button"
+          (click)="changeAddressVisible()">✖</button>
+      </div>
+
+    </div>
+    }
+
+    @if (is_input_remarks) {
+    <div class="col-12">
+      <label>Remarks</label>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="bill.remarks" name="title" />
+        <button class="tyNewBillBottomMargin tybtn btn btn-danger" type="button"
+          (click)="changeRemarksVisible()">✖</button>
+      </div>
+
+    </div>
+    }
+
+  </div>
+
+  <hr />
+  <div class="col-2">
+    <label>Add bill items, qty: </label>
+    <div class="input-group">
+      <input type="number" class="form-control" [(ngModel)]="add_bill_items_qty" name="add_bill_items_qty" />
+      <button class="tyNewBillBottomMargin tybtn btn btn-primary" (click)="addBillItemsColumnByNumber()">Do it!</button>
+    </div>
+  </div>
+  <hr />
+
+  <div class="row">
+    @for (item of bill_items; track item; let idx = $index) {
+    <div class="col-12 col-lg-6 col-xl-4">
+      <div class="card my-2">
+        <div class="card-body">
+          <h4>#{{idx + 1}}</h4>
+          <div class="row">
+            <div class="col-6">
+              <input id="on_sale_{{idx}}" class="form-check-input" type="checkbox" [(ngModel)]="item.on_sale">
+              <label class="form-check-label" for="flexCheckDefault">
+                &nbsp;⭐ On Sale
+              </label>
+            </div>
+
+            <div class="col-6">
+              <input id="private_{{idx}}" class="form-check-input" type="checkbox" [(ngModel)]="item.private">
+              <label class="form-check-label" for="flexCheckDefault">
+                &nbsp;🔒 Private
+              </label>
+            </div>
+
+            <div class="col-12">
+              <input list="billItemsTitleEn" id="name_en_{{idx}}" type="text" class="form-control text-uppercase"
+                [placeholder]="'Name (English)'" [(ngModel)]="item.name_en" required>
+              <datalist id="billItemsTitleEn">
+                @for (title of all_bill_item_name_en; track $index; let idx=$index) {
+                <option value="{{title}}">
+                  }
+              </datalist>
+            </div>
+
+            <div class="col-12">
+              <input list="billItemsTitleZh" id="name_zh_{{idx}}" type="text" class="form-control"
+                [placeholder]="'Name (Chinese)'" [(ngModel)]="item.name_zh">
+              <datalist id="billItemsTitleZh">
+                @for (title of all_bill_item_name_zh; track $index; let idx=$index) {
+                <option value="{{title}}">
+                  }
+              </datalist>
+            </div>
+
+            <div class="col-12">
+              <div class="input-group">
+                <input id="amount_{{idx}}" type="number" class="form-control" [placeholder]="'Amount'"
+                  [(ngModel)]="item.amount" [value]="item.amount || ''">
+
+                <select id="unitSelect_{{idx}}" class="form-select tyNewBillBottomMargin" [value]="item.unit?.id || ''"
+                  (change)="onUnitSelect($event, idx)">
+                  <option value="" disabled selected>Unit</option>
+                  @for (unit of all_units; track unit; let unitIdx = $index) {
+                  <option [value]="unit.id">
+                    {{ unit.display_name }}
+                  </option>
+                  }
+                </select>
+
+                <input id="qty_{{idx}}" type="number" class="form-control" [placeholder]="'Qty'" [(ngModel)]="item.qty"
+                  [value]="item.qty || ''">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="input-group">
+                <input id="price_{{ idx }}" type="number" class="form-control" [placeholder]="'Price'"
+                  [(ngModel)]="item.price" [value]="item.price || ''" />
+                <input id="tax_{{ idx }}" type="number" class="form-control" [placeholder]="'Tax'"
+                  [(ngModel)]="item.tax" [value]="item.tax || ''" />
+                <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button"
+                  (click)="calculateBillItemTax(idx, 13)">
+                  13
+                </button>
+                <div class="tyNewBillSplit tyNewBillBottomMargin"></div>
+                <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button"
+                  (click)="calculateBillItemTax(idx, 5)">
+                  5
+                </button>
+                <div class="tyNewBillSplit tyNewBillBottomMargin"></div>
+                <button class="tyNewBillBottomMargin tybtn btn btn-primary" type="button"
+                  (click)="calculateBillItemTax(idx, 0)">
+                  0
+                </button>
+              </div>
+            </div>
+            <div class="col-12">
+              <textarea id="description_{{idx}}" class="form-control tyNewBillBottomMargin"
+                [placeholder]="'Description'" [(ngModel)]="item.description"></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-danger mt-2" (click)="removeBillItem(idx)">Delete Row</button>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="previewModalLabel">Preview Your Bill</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Bill Information -->
+          <div class="mb-3">
+            <h6>Bill Details</h6>
+            <div><strong>User:</strong> {{ bill.bill_user?.display_name || 'N/A' }}</div>
+            <div><strong>Organization (English):</strong> {{ bill.organization_en || 'N/A' }}</div>
+            <div><strong>Action:</strong> {{ bill.action || 'N/A' }}</div>
+            <div><strong>Date and Time:</strong> {{ bill.date_time | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+            <div><strong>Bill Currency:</strong> {{ bill.bill_currency?.display_name || 'N/A' }}</div>
+            <div><strong>Subtotal:</strong> {{ bill.bill_subtotal !== null ? (bill.bill_subtotal/100 | number:'1.2-2') :
+              'N/A'
+              }}</div>
+            <div><strong>Tax:</strong> {{ bill.bill_tax !== null ? (bill.bill_tax/100 | number:'1.2-2') : 'N/A' }}</div>
+            <div><strong>Tips:</strong> {{ bill.bill_tips !== null ? (bill.bill_tips/100 | number:'1.2-2') : 'N/A' }}</div>
+            <div><strong>Bill Payer:</strong> {{ bill.bill_payer?.display_name || 'N/A' }}</div>
+            <div><strong>Paid Wallet:</strong> {{ bill.paid_wallet?.display_name || 'N/A' }}</div>
+            <div><strong>Paid Amount:</strong> {{ bill.paid_amount !== null ? (bill.paid_amount/100 | number:'1.2-2') :
+              'N/A'
+              }}</div>
+            <div><strong>Organization (Chinese):</strong> {{ bill.organization_zh || 'N/A' }}</div>
+            <div><strong>Address (English):</strong> {{ bill.address_en || 'N/A' }}</div>
+            <div><strong>Address (Chinese):</strong> {{ bill.address_zh || 'N/A' }}</div>
+            <div><strong>Remarks:</strong> {{ bill.remarks || 'N/A' }}</div>
+          </div>
+
+          <!-- Bill Items -->
+          <div class="mb-3">
+            <h6>Bill Items</h6>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                                    <th>On Sale</th>
+                  <th>Private</th>
+                  <th>Name (EN)</th>
+                  <th>Name (ZH)</th>
+                  <th>Amount</th>
+                  <th>Unit</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>Tax</th>
+                                    <th>Description</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of bill_items; index as i">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.on_sale ? 'Yes' : 'No' }}</td>
+                  <td>{{ item.private ? 'Yes' : 'No' }}</td>
+                  <td>{{ item.name_en.toUpperCase() || 'N/A' }}</td>
+                  <td>{{ item.name_zh || 'N/A' }}</td>
+                  <td>{{ item.amount !== null ? item.amount : 'N/A' }}</td>
+                  <td>{{ item.unit?.display_name || 'N/A' }}</td>
+                  <td>{{ item.qty !== null ? item.qty : 'N/A' }}</td>
+                  <td>{{ item.price !== null && item.price !== undefined ? (item.price/100 | number:'1.2-2') : 'N/A' }}</td>
+                  <td>{{ item.tax !== null && item.tax !== undefined ? (item.tax/100 | number:'1.2-2') : 'N/A' }}</td>
+                  <td>{{ item.description || 'N/A' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="submitData()">Confirm and Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
